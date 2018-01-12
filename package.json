@@ -18,6 +18,7 @@
   "homepage": "https://github.com/andrushkin2/ilBudgetto#readme",
   "dependencies": {
     "@types/node": "^9.3.0",
+    "@types/promise": "^7.1.30",
     "gulp": "^3.9.1",
     "gulp-connect": "^5.2.0",
     "gulp-less": "^3.4.0",
