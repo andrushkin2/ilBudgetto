@@ -1,0 +1,30 @@
+{
+  "name": "ilbudgetto",
+  "version": "0.0.1",
+  "description": "Economy app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrushkin2/ilBudgetto.git"
+  },
+  "author": "Andrei Kozyakov",
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/andrushkin2/ilBudgetto/issues"
+  },
+  "homepage": "https://github.com/andrushkin2/ilBudgetto#readme",
+  "dependencies": {
+    "@types/node": "^9.3.0",
+    "gulp": "^3.9.1",
+    "gulp-connect": "^5.2.0",
+    "gulp-less": "^3.4.0",
+    "gulp-typescript": "^4.0.0-alpha.1",
+    "gulp-watch": "^5.0.0",
+    "run-sequence": "^2.2.1",
+    "typescript": "^2.6.2",
+    "vinyl-source-stream": "^2.0.0"
+  }
+}

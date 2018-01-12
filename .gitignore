@@ -57,3 +57,11 @@ typings/
 # dotenv environment variables file
 .env
 
+# client JS files
+server/wwwroot/*.js
+
+# client CSS files
+server/wwwroot/*.css
+
+# ds_store
+.DS_Store
