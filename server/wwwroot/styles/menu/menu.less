@@ -1,6 +1,9 @@
+@import "../variables";
 
 .menu {
     @menuWidth: 250px;
+    @listBorderColor: lighten(@backgroundColor, 10%);
+    @listBorderColorSide: darken(@backgroundColor, 10%);
 
 
     box-sizing: border-box;
@@ -23,8 +26,47 @@
         max-width: @menuWidth;
         min-width: @menuWidth;
         position: relative;
+        height: 100%;
         top: 0;
         left: 0;
         overflow-y: auto;
+    }
+
+    .menuList {
+        border: none;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        font-size: 1.2em;
+        border: none;
+        border-right: 1px solid;
+        height: 100%;
+    }
+
+    .menuList_dark {
+        background: @menuBackground;
+        border-color: @listBorderColorSide;
+    }
+
+    .menuListItem {
+        padding: 10px 5px 10px 15px;
+        margin: 0;
+        border: none;
+        border-top: 1px solid;
+        cursor: pointer;
+
+        &:last-of-type {
+            border-bottom: 1px solid;
+        }
+    }
+
+    .menuListItem_dark {
+        color: @mainColor;
+        background: @menuBackground;
+        border-color: @listBorderColor;
+
+        &:last-of-type {
+            border-color: @listBorderColor;
+        }
     }
 }
