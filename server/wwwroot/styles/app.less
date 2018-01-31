@@ -1,11 +1,21 @@
 @import "./variables";
 @import "./header/header";
+@import "./menu/menu";
 
 @headColor: @headerColor;
 
 
 html, body {
     background: @backgroundColor;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    position: relative;
+    overflow: hidden;
 }
 
 button, input {

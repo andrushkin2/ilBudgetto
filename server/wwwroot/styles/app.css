@@ -8,9 +8,41 @@
   height: 50px;
   border-bottom: 1px solid #191c20;
 }
+.menu {
+  box-sizing: border-box;
+  position: absolute;
+  margin-top: 50px;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+}
+.menu .overflow {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+.menu .menu_block {
+  width: 250px;
+  max-width: 250px;
+  min-width: 250px;
+  position: relative;
+  top: 0;
+  left: 0;
+  overflow-y: auto;
+}
 html,
 body {
   background: #303b46;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+body {
+  position: relative;
+  overflow: hidden;
 }
 button,
 input {
