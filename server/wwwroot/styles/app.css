@@ -1,27 +1,33 @@
 .header {
   z-index: 1;
-  padding-top: 12px;
-  padding-bottom: 12px;
+  padding: 10px 15px;
   color: rgba(255, 255, 255, 0.75);
   background-color: #24292e;
   box-sizing: border-box;
-  height: 50px;
+  height: 51px;
   border-bottom: 1px solid #191c20;
+}
+.header .menuIcon {
+  outline: none;
+  position: relative;
+  height: 100%;
+  width: 30px;
+  display: inline-block;
+  box-sizing: border-box;
+  overflow: hidden;
+  cursor: pointer;
 }
 .menu {
   box-sizing: border-box;
   position: absolute;
-  margin-top: 50px;
+  margin-top: 51px;
   top: 0;
   bottom: 0;
-  width: 100%;
-}
-.menu .overflow {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  left: 0;
+  width: auto;
+  will-change: transform, opacity;
+  transition: 150ms linear;
+  transform: translateX(-250px);
+  opacity: 0;
 }
 .menu .menu_block {
   width: 250px;
@@ -64,6 +70,11 @@
 .menu .menuListItem_dark:last-of-type {
   border-color: #455564;
 }
+.menu.shown {
+  transform: translateX(0);
+  opacity: 1;
+  z-index: 1000;
+}
 .list {
   box-sizing: border-box;
   position: relative;
@@ -88,7 +99,7 @@ body {
   width: 100%;
   margin: 0;
   padding: 0;
-  font-size: 14px;
+  font-size: 16px;
 }
 body {
   position: relative;
@@ -99,4 +110,13 @@ input {
   outline: none;
   padding: 0;
   margin: 0;
+}
+.mainContainer {
+  box-sizing: border-box;
+  position: absolute;
+  margin-top: 51px;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  background: inherit;
 }

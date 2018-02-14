@@ -1,11 +1,24 @@
+@import "../variables";
+
 
 .header {
     z-index: 1;
-    padding-top: 12px;
-    padding-bottom: 12px;
+    padding: 10px 15px;
     color: rgba(255, 255, 255, 0.75);
     background-color: @headColor;
     box-sizing: border-box;
-    height: 50px;
+    height: @headerHeight;
     border-bottom: 1px solid darken(@headColor, 5%);
+
+
+    .menuIcon {
+        outline: none;
+        position: relative;
+        height: 100%;
+        width: 30px;
+        display: inline-block;
+        box-sizing: border-box;
+        overflow: hidden;
+        cursor: pointer;
+    }
 }

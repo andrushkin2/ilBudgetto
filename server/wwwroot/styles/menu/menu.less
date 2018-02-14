@@ -8,18 +8,14 @@
 
     box-sizing: border-box;
     position: absolute;
-    margin-top: 50px;
+    margin-top: @headerHeight;
     top: 0;
     bottom: 0;
-    width: 100%;
-
-    .overflow {
-        position: absolute;
-        height: 100%;
-        width: 100%;
-        top: 0;
-        left: 0;
-    }
+    width: auto;
+    will-change: transform, opacity;
+    transition: 150ms linear;
+    transform: translateX(-@menuWidth);
+    opacity: 0;
 
     .menu_block {
         width: @menuWidth;
@@ -68,5 +64,11 @@
         &:last-of-type {
             border-color: @listBorderColor;
         }
+    }
+
+    &.shown {
+        transform: translateX(0);
+        opacity: 1;
+        z-index: 1000;
     }
 }
