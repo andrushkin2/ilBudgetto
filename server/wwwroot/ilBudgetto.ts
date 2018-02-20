@@ -1,6 +1,7 @@
 
 import IsSupport from "./js/supported";
 import Header from "./js/header";
+import Menu from "./js/menu";
 
 class Budgetto {
     private productVersion = "0.0.1";
@@ -11,8 +12,9 @@ class Budgetto {
     constructor() {
         let headerElement: HTMLDivElement | null = document.querySelector("#headerId");
         let menuElement: HTMLDivElement | null = document.querySelector("#menuId");
+        let menuBlock: HTMLDivElement | null = document.querySelector("#menuBlockId");
 
-        if (headerElement === null || menuElement === null) {
+        if (headerElement === null || menuElement === null || menuBlock === null) {
             throw new Error(`Cannot find header element`);
         }
 
@@ -25,7 +27,15 @@ class Budgetto {
             }
         };
 
+        // create a header
         new Header(headerElement, onClickMenu);
+
+        // create a main menu
+        new Menu(menuBlock, [
+            { name: "Main", link: "#main" },
+            { name: "Analisys", link: "#analisys" },
+            { name: "Settings", link: "#settings" }
+        ]);
     }
 }
 
