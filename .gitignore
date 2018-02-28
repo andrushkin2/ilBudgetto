@@ -59,6 +59,7 @@ typings/
 
 # client JS files
 server/wwwroot/**/*.js
+!server/wwwroot/**/external/*.js
 
 # client CSS files
 server/wwwroot/*.css
