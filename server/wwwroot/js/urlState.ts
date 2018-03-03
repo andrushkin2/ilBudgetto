@@ -4,6 +4,87 @@ import { extend } from "./helpers";
 
 export default class UrlState {
     private currentState: IUrlStateObj | null = null;
+    private previousStableState = "";
+    constructor() {
+        this.currentState = this.readCurrentState();
+
+        address.change(changedExternally => {
+            this.currentState = this.readCurrentState();
+        });
+    }
+    private readCurrentState() {
+        let newState: IUrlStateObj = {};
+
+        try {
+            newState = this.validateState(this.getStateObject());
+            this.previousStableState = window.location.hash.slice(1);
+        } catch (e) {
+            console.log("Invalid url '" + window.location.hash + "'. Stepping back to '#" + this.previousStableState + "'");
+
+            this.rollbackToPreviousStableState();
+
+            if (!newState) {
+                newState = this.readCurrentState();
+            }
+        }
+
+        return newState;
+    }
+    private rollbackToPreviousStableState() {
+        window.location.hash = this.previousStableState;
+    }
+    private getStateObject() {
+        return (decode(address.get()) || {}) as IUrlStateObj;
+    }
+    private validateState(curState) {
+        if (!this.isValid(curState)) {
+            curState = this.getDefaultState();
+            this.setHash(curState, false);
+        }
+
+        return curState;
+    }
+    private isValid(stateCandidate?: IUrlStateObj) {
+        let etalon = this.getDefaultState();
+
+        if (!stateCandidate) {
+            return false;
+        }
+
+        for (let name in etalon) {
+            if (!(name in stateCandidate)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+    private getDefaultState() {
+        let result: IUrlStateObj = {},
+            localState = this.currentState || {};
+
+        for (let name in localState) {
+            result[name] = {};
+        }
+
+        return result;
+    }
+    public getHash(obj: IUrlStateObj) {
+        let stateString = encode(obj);
+
+        return stateString ? `#${stateString}` : "";
+    }
+    public setHash(child: IUrlStateObj | string, addToHistory = false) {
+        let encodedState = typeof child === "string" ? child : this.getHash(child);
+
+        address.set(encodedState, addToHistory);
+    }
+    public encodeUrl(state: IUrlStateObj) {
+        return encode(state);
+    }
+    public decodeUrl(state: string) {
+        return decode(state);
+    }
 }
 
 class UrlStateController {

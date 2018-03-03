@@ -2,10 +2,12 @@
 import IsSupport from "./js/supported";
 import Header from "./js/header";
 import Menu from "./js/menu";
+import UrlState from "./js/urlState";
 
 class Budgetto {
     private productVersion = "0.0.1";
     public support = new IsSupport();
+    public urlState: UrlState;
     get vesrion() {
         return this.productVersion;
     }
@@ -17,6 +19,8 @@ class Budgetto {
         if (headerElement === null || menuElement === null || menuBlock === null) {
             throw new Error(`Cannot find header element`);
         }
+
+        this.urlState = new UrlState();
 
         let menu = menuElement;
         let onClickMenu = (e: Event) => {
