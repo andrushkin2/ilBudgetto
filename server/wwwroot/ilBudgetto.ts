@@ -3,6 +3,7 @@ import IsSupport from "./js/supported";
 import Header from "./js/header";
 import Menu from "./js/menu";
 import UrlState from "./js/urlState";
+import PageLoader, { IPageArgs } from "./js/pageLoader";
 
 class Budgetto {
     private productVersion = "0.0.1";
@@ -20,10 +21,19 @@ class Budgetto {
             throw new Error(`Cannot find header element`);
         }
 
-        this.urlState = new UrlState();
+        let pageLoader = new PageLoader("main");
+
+        this.urlState = new UrlState(() => {
+            let state = this.urlState.getUrlState();
+            let pageName = state ? state.page : undefined;
+            
+            pageLoader.loadPage(pageName, pageArgs);
+        });
 
         let menu = menuElement;
         let onClickMenu = (e: Event) => {
+            e.preventDefault();
+
             if (menu.classList.contains("shown")) {
                 menu.classList.remove("shown");
             } else {
@@ -32,7 +42,7 @@ class Budgetto {
         };
 
         // create a header
-        new Header(headerElement, onClickMenu);
+        let header = new Header(headerElement, onClickMenu);
 
         // create a main menu
         new Menu(menuBlock, [
@@ -40,6 +50,28 @@ class Budgetto {
             { name: "Analisys", link: "#analisys" },
             { name: "Settings", link: "#settings" }
         ]);
+
+        let pageArgs: IPageArgs = {
+            urlState: this.urlState,
+            header,
+            getUrlState: () => {
+                let state = this.urlState.getUrlState();
+
+                if (state && state.state) {
+                    return state.state;
+                }
+
+                return {};
+            },
+            setUrlState: (pageName: string, args: any) => {
+                this.urlState.setUrlState({
+                    page: pageName,
+                    state: args
+                });
+            }
+        };
+
+        pageLoader.loadPage(undefined, pageArgs);
     }
 }
 

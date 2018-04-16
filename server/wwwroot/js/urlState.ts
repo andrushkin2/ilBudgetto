@@ -5,11 +5,12 @@ import { extend } from "./helpers";
 export default class UrlState {
     private currentState: IUrlStateObj | null = null;
     private previousStableState = "";
-    constructor() {
+    constructor(urlChange: () => void) {
         this.currentState = this.readCurrentState();
 
-        address.change(changedExternally => {
+        address.change(() => {
             this.currentState = this.readCurrentState();
+            urlChange();
         });
     }
     private readCurrentState() {
@@ -84,6 +85,12 @@ export default class UrlState {
     }
     public decodeUrl(state: string) {
         return decode(state);
+    }
+    public getUrlState() {
+        return this.currentState;
+    }
+    public setUrlState(url: IUrlStateObj, addToHistory = false) {
+        this.setHash(url, addToHistory);
     }
 }
 
