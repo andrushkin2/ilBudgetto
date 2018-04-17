@@ -1,11 +1,12 @@
+/* Flex */
 .header {
   z-index: 1;
   padding: 10px 15px;
   color: rgba(255, 255, 255, 0.75);
-  background-color: #24292e;
+  background-color: #00bfc7;
   box-sizing: border-box;
   height: 51px;
-  border-bottom: 1px solid #191c20;
+  border-bottom: 1px solid #00a7ae;
 }
 .header .menuIcon {
   outline: none;
@@ -28,6 +29,7 @@
   transition: 150ms linear;
   transform: translateX(-250px);
   opacity: 0;
+  z-index: 0;
 }
 .menu .menu_block {
   width: 250px;
@@ -49,8 +51,8 @@
   height: 100%;
 }
 .menu .menuList_dark {
-  background: #2d3640;
-  border-color: #1b2128;
+  background: #f7f7ff;
+  border-color: #c4c4ff;
 }
 .menu .menuListItem {
   padding: 10px 5px 10px 15px;
@@ -63,12 +65,12 @@
   border-bottom: 1px solid;
 }
 .menu .menuListItem_dark {
-  color: #99acbd;
-  background: #2d3640;
-  border-color: #455564;
+  color: #596a7e;
+  background: #f7f7ff;
+  border-color: #dedeff;
 }
 .menu .menuListItem_dark:last-of-type {
-  border-color: #455564;
+  border-color: #dedeff;
 }
 .menu.shown {
   transform: translateX(0);
@@ -81,7 +83,7 @@
   outline: none;
 }
 .list_def_color {
-  background: #303b46;
+  background: #f7f7ff;
 }
 .listItem {
   box-sizing: border-box;
@@ -90,32 +92,128 @@
   user-select: none;
 }
 .listItem_def_color {
-  background: #303b46;
+  background: #f7f7ff;
+}
+#mainPageId {
+  display: block;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
 }
 #mainPageId .date {
-  background: #e5e5e5;
-  font-size: 2em;
-  border-radius: 5px;
+  -webkit-box-flex: 0 1 auto;
+  -webkit-flex: 0 1 auto;
+  -moz-flex: 0 1 auto;
+  -ms-flex: 0 1 auto;
+  flex: 0 1 auto;
   margin: 5px;
   text-align: center;
-  color: #303b46;
+  color: #eafbfc;
+}
+#mainPageId .date .time {
+  background: #43adba;
+  font-size: 1.6em;
+  padding: 2px 7px;
+  border-radius: 5px;
 }
 #mainPageId .status {
-  background: #e5e5e5;
+  display: block;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1 1 auto;
+  -webkit-flex: 1 1 auto;
+  -moz-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  background: white;
+  border: 1px sodid #43adba;
   font-size: 2em;
   border-radius: 5px;
   margin: 5px;
   text-align: center;
-  color: #303b46;
+  color: #eafbfc;
+  max-height: 500px;
+  box-shadow: 0 0 3px 4px #f5f5ff;
+}
+#mainPageId .status .summary {
+  color: #42bcce;
+}
+#mainPageId .status .currentState {
+  color: rgba(0, 191, 199, 0.8);
+}
+#mainPageId .status .existsToday {
+  color: rgba(127, 89, 188, 0.69019608);
+}
+#mainPageId .buttons {
+  display: block;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1 1 auto;
+  -webkit-flex: 1 1 auto;
+  -moz-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  -webkit-flex-direction: row;
+  -moz-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-justify-content: space-between;
+  -webkit-box-pack: justify;
+  font-size: 2em;
+  border-radius: 5px;
+  margin: 5px;
+  text-align: center;
+  height: 80px;
+}
+#mainPageId .actionButton {
+  -webkit-box-flex: 0 1 auto;
+  -webkit-flex: 0 1 auto;
+  -moz-flex: 0 1 auto;
+  -ms-flex: 0 1 auto;
+  flex: 0 1 auto;
+  margin: 0 30px;
+  width: 60px;
+  height: 60px;
+  font-size: inherit;
+  border: 3px solid #00bac2;
+  border-radius: 60px;
+  color: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  font-weight: bold;
+  background: #00bfc7;
+}
+#mainPageId .actionButton .buttonLink {
+  width: 100%;
+  height: 100%;
+  display: inline-block;
 }
 html,
 body {
-  background: #303b46;
+  background: #f7f7ff;
   height: 100%;
   width: 100%;
   margin: 0;
   padding: 0;
   font-size: 16px;
+  font-family: "Roboto", Roboto, "Segoe UI", Segoe, "Helvetica Neue", Helvetica, sans-serif;
 }
 body {
   position: relative;
@@ -126,6 +224,14 @@ input {
   outline: none;
   padding: 0;
   margin: 0;
+  font-family: inherit;
+}
+a,
+a:visited,
+a:focus,
+a:active {
+  text-decoration: none;
+  color: inherit;
 }
 .mainContainer {
   box-sizing: border-box;

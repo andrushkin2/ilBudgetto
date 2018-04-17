@@ -1,7 +1,7 @@
 @import "../variables";
 
 .menu {
-    @listBorderColor: lighten(@backgroundColor, 10%);
+    @listBorderColor: darken(@backgroundColor, 5%);
     @listBorderColorSide: darken(@backgroundColor, 10%);
 
 
@@ -15,6 +15,7 @@
     transition: 150ms linear;
     transform: translateX(-@menuWidth);
     opacity: 0;
+    z-index: 0;
 
     .menu_block {
         width: @menuWidth;

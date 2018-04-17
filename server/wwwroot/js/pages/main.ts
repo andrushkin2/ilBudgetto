@@ -13,17 +13,16 @@ export default class MainPage implements IPage {
 
         this.content = div;
 
-
     }
 
     public focus() {
         let date = new Date();
 
-        this.pageElements.mainDate.textContent = `${ date.getDate() }/ ${date.getMonth() + 1 }/${ date.getFullYear() }`;
+        this.pageElements.mainDateSpan.textContent = `${ date.getDate() }/${date.getMonth() + 1 }/${ date.getFullYear() }`;
     }
 
     public initialize() {
-        alert("init");
+
     }
 
     public blur() {

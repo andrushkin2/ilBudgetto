@@ -1,4 +1,5 @@
 @import "./variables";
+@import "./mixins";
 @import "./header/header";
 @import "./menu/menu";
 @import "./list/list";
@@ -15,6 +16,7 @@ html, body {
     margin: 0;
     padding: 0;
     font-size: 16px;
+    font-family: "Roboto",Roboto,"Segoe UI",Segoe,"Helvetica Neue",Helvetica,sans-serif;
 }
 
 body {
@@ -26,6 +28,12 @@ button, input {
     outline: none;
     padding: 0;
     margin: 0;
+    font-family: inherit;
+}
+
+a, a:visited, a:focus, a:active {
+    text-decoration: none;
+    color: inherit;
 }
 
 .mainContainer {
