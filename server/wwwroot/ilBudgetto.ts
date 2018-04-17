@@ -16,12 +16,14 @@ class Budgetto {
         let headerElement: HTMLDivElement | null = document.querySelector("#headerId");
         let menuElement: HTMLDivElement | null = document.querySelector("#menuId");
         let menuBlock: HTMLDivElement | null = document.querySelector("#menuBlockId");
+        let titleElement: HTMLTitleElement | null = document.querySelector("#titleId");
+        let mainBlock: HTMLDivElement | null = document.querySelector("#data_block");
 
-        if (headerElement === null || menuElement === null || menuBlock === null) {
+        if (titleElement === null || headerElement === null || menuElement === null || menuBlock === null || mainBlock === null) {
             throw new Error(`Cannot find header element`);
         }
 
-        let pageLoader = new PageLoader("main");
+        let pageLoader = new PageLoader(mainBlock, "main");
 
         this.urlState = new UrlState(() => {
             let state = this.urlState.getUrlState();
@@ -51,9 +53,13 @@ class Budgetto {
             { name: "Settings", link: "#settings" }
         ]);
 
+        let title = titleElement;
         let pageArgs: IPageArgs = {
             urlState: this.urlState,
             header,
+            setTitle: (text: string) => {
+                title.textContent = `il budgetto | ${ text }`;
+            },
             getUrlState: () => {
                 let state = this.urlState.getUrlState();
 

@@ -3,6 +3,7 @@
 @import "./menu/menu";
 @import "./list/list";
 @import "./list/listItem";
+@import "./pages/mainPage";
 
 @headColor: @headerColor;
 
@@ -33,6 +34,30 @@ button, input {
     margin-top: @headerHeight;
     top: 0;
     bottom: 0;
-    width: 100%;
+    left: 0;
+    right: 0;
     background: inherit;
+
+    .pageClass {
+        box-sizing: border-box;
+        padding: 4px;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+@media only screen and (min-width: 700px) {
+    #menuId, #menuId.shown {
+        transform: translateX(0);
+        opacity: 1;
+        z-index: 1000;
+    }
+
+    .mainContainer {
+        margin-left: @menuWidth;
+    }
+
+    .pageClass {
+        max-width: 700px
+    }
 }

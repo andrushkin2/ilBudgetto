@@ -55,7 +55,13 @@ Watch typescript and less
 */
 gulp.task("watch", function () {
     gulp.watch(`${stylesPath}**/*.less`, ["less"]);
-    gulp.watch(`${wwwrootPath}**/*.js`, ["browserify"]);
+    gulp.watch(`${wwwrootPath}**/*.js`, () => {
+        try {
+            gulp.run("browserify");
+        } catch (e) {
+            console.log(`Something wrong with Browserify: ${ e.toString() }`)
+        }
+    });
 })
 
 /*
