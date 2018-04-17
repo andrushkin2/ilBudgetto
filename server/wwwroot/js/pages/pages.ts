@@ -1,5 +1,6 @@
 import MainPage from "./main";
 import { IPage } from "../pageLoader";
+import Payment from "./payment";
 
 interface IKnownPages {
     [key: string]: new () => IPage;
@@ -10,7 +11,8 @@ export interface IPageElements {
 }
 
 let pages: IKnownPages = {
-    main: MainPage
+    main: MainPage,
+    payment: Payment
 }
 
 export { pages as Pages }

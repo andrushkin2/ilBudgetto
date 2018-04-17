@@ -205,6 +205,103 @@
   height: 100%;
   display: inline-block;
 }
+#paymentPageId .form {
+  display: block;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  border: 1px sodid #43adba;
+  font-size: 1.6em;
+  color: rgba(102, 65, 161, 0.69019608);
+  box-shadow: 0 0 3px 4px #f5f5ff;
+}
+#paymentPageId .formFeild {
+  display: block;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -moz-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  background: white;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+}
+#paymentPageId .label {
+  -webkit-box-flex: 0 1 40%;
+  -webkit-flex: 0 1 40%;
+  -moz-flex: 0 1 40%;
+  -ms-flex: 0 1 40%;
+  flex: 0 1 40%;
+}
+#paymentPageId .input,
+#paymentPageId .select {
+  border: none;
+  border-bottom: 1px solid rgba(102, 65, 161, 0.69019608);
+  margin: 0 5px;
+  font-size: 1em;
+  color: rgba(127, 89, 188, 0.69019608);
+}
+#paymentPageId .input {
+  -webkit-box-flex: 1 1 auto;
+  -webkit-flex: 1 1 auto;
+  -moz-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  width: 100%;
+  padding: 0 5px;
+}
+#paymentPageId .select {
+  -webkit-box-flex: 0 0 auto;
+  -webkit-flex: 0 0 auto;
+  -moz-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+}
+#paymentPageId .buttons {
+  display: block;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -moz-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+}
+#paymentPageId .buttons .button {
+  font-size: 1em;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+}
+#paymentPageId .buttons .cancel {
+  background: #596a7e;
+  color: white;
+  border: 1px solid #445160;
+}
+#paymentPageId .buttons .apply {
+  background: rgba(127, 89, 188, 0.69019608);
+  color: white;
+  width: 60%;
+  max-width: 200px;
+  border: 1px solid rgba(102, 65, 161, 0.69019608);
+}
 html,
 body {
   background: #f7f7ff;
@@ -220,11 +317,14 @@ body {
   overflow: hidden;
 }
 button,
-input {
+input,
+select {
   outline: none;
   padding: 0;
   margin: 0;
   font-family: inherit;
+  border-style: solid;
+  cursor: pointer;
 }
 a,
 a:visited,

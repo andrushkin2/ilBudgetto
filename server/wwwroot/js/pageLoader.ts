@@ -9,11 +9,17 @@ export interface IPage {
     node: HTMLDivElement
 }
 
+export interface IKeyValue {
+    [key: string]: any;
+}
+
 export interface IPageArgs {
     urlState: UrlState;
     setTitle: (text: string) => void;
-    getUrlState: () => {};
-    setUrlState: (pagename: string, {}) => void;
+    goBack: () => void;
+    isCanGoBack: () => void;
+    getUrlState: () => IKeyValue;
+    setUrlState: (pagename: string, state?: IKeyValue) => void;
     header: Header
 }
 
@@ -66,6 +72,7 @@ export default class PageLoader {
                 this.mainBlock.removeChild(child);
             }
 
+            this.currentPage = page;
             args.setTitle(page);
 
             this.activePage = pageInstance;

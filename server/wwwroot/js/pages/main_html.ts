@@ -20,10 +20,10 @@ const MainContainer = () => `<div id="mainPageId">
 
     <div class="buttons" id="mainButtons">
         <button class="actionButton" id="plusButton">
-            <a class="buttonLink" href="#menu,event:plus">+</a>
+            <a class="buttonLink" href="#payment,event:plus">+</a>
         </button>
         <button class="actionButton" id="minusButton">
-            <a class="buttonLink" href="#menu,event:minus">-</a>
+            <a class="buttonLink" href="#payment,event:minus">-</a>
         </button>
     </div>
 

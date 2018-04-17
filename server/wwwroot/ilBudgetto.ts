@@ -57,6 +57,8 @@ class Budgetto {
         let pageArgs: IPageArgs = {
             urlState: this.urlState,
             header,
+            goBack: () => this.urlState.goBack(),
+            isCanGoBack: () => this.urlState.canGoBack(),
             setTitle: (text: string) => {
                 title.textContent = `il budgetto | ${ text }`;
             },
@@ -77,7 +79,10 @@ class Budgetto {
             }
         };
 
-        pageLoader.loadPage(undefined, pageArgs);
+        let page = this.urlState.getUrlState();
+        let pageName = page && page.page || undefined;
+
+        pageLoader.loadPage(pageName, pageArgs);
     }
 }
 

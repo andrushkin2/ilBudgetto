@@ -75,6 +75,12 @@ export default class UrlState {
 
         return stateString ? `#${stateString}` : "";
     }
+    public canGoBack() {
+        return history.length > 1;
+    }
+    public goBack() {
+        history.back();
+    }
     public setHash(child: IUrlStateObj | string, addToHistory = false) {
         let encodedState = typeof child === "string" ? child : this.getHash(child);
 
