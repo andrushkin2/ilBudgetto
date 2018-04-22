@@ -21,7 +21,7 @@ const PaymentContainer = () => `<div id="paymentPageId">
         </div>
         <div class="buttons">
             <button class="button cancel" id="paymentCancel">Cancel</button>
-            <button class="button apply" id="pyamentApply">Apply</button>
+            <button class="button apply" id="paymentApply">Apply</button>
         </div>
     </div>
 </div>`

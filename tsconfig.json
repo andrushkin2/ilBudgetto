@@ -5,6 +5,11 @@
     ],
     "compileOnSave": true,
     "compilerOptions": {
+        "lib": [
+            "es2015.promise",
+            "dom",
+            "es2015"
+        ],
         "target": "es5",
         "module": "commonjs",
         "noImplicitAny": false,
