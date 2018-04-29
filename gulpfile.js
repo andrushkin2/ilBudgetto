@@ -9,6 +9,7 @@ var connect = require("gulp-connect");
 var source = require("vinyl-source-stream");
 
 const wwwrootPath = "./server/wwwroot/";
+const publicPath = "./server/public/";
 const stylesPath = `${wwwrootPath}styles/`;
 
 /*
@@ -37,7 +38,7 @@ compile less files
 gulp.task("less", function () {
     gulp.src(`${stylesPath}app.less`)
         .pipe(less())
-        .pipe(gulp.dest(stylesPath));
+        .pipe(gulp.dest(publicPath));
 });
 
 
@@ -47,7 +48,7 @@ browserify
 gulp.task("browserify", function (stream) {
     return browserify(`${wwwrootPath}/ilBudgetto.js`).bundle()
         .pipe(source("bundle.js"))
-        .pipe(gulp.dest(wwwrootPath));
+        .pipe(gulp.dest(publicPath));
 });
 
 /*

@@ -58,7 +58,7 @@ typings/
 .env
 
 # client JS files
-server/wwwroot/**/*.js
+server/**/*.js
 !server/wwwroot/**/external/*.js
 
 # client CSS files

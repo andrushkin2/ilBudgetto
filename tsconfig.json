@@ -1,7 +1,10 @@
 
 {
     "include": [
-        "server/wwwroot/**/*.ts"
+        "./server/**/*.ts"
+    ],
+    "exclude": [
+        "./node_modules/**/*.*"
     ],
     "compileOnSave": true,
     "compilerOptions": {
