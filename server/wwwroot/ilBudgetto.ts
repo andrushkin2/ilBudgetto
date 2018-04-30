@@ -5,6 +5,10 @@ import Menu from "./js/menu";
 import UrlState from "./js/urlState";
 import PageLoader, { IPageArgs } from "./js/pageLoader";
 
+export interface IIdEntity {
+    id: string;
+}
+
 class Budgetto {
     private productVersion = "0.0.1";
     public support = new IsSupport();
