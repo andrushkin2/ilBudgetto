@@ -1,10 +1,10 @@
 import { IIdEntity } from "../wwwroot/ilBudgetto";
 
 export interface IApiEntity<T, Search> {
-    add: (entity: T) => (T & IIdEntity)[];
-    remove: (entity: IIdEntity) => IIdEntity[];
-    set: (entity: T & IIdEntity) => (T & IIdEntity)[];
-    get: (search?: Search) => (T & IIdEntity)[];
+    add: (entity: T) => PromiseLike<(T & IIdEntity)[]>;
+    remove: (entity: IIdEntity) => PromiseLike<IIdEntity[]>;
+    set: (entity: T & IIdEntity) => PromiseLike<(T & IIdEntity)[]>;
+    get: (search?: Search) => Promise<(T & IIdEntity)[]>;
 }
 
 export default class Api {

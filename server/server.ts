@@ -2,8 +2,9 @@ import { App } from "./server/expressInstance";
 import * as http from "http";
 import DbManager from "./server/dbManager";
 import Api from "./server/api";
+import { UsersDBName } from "./server/dbInstance";
 
-const DBManager = new DbManager("testDB");
+const DBManager = new DbManager(UsersDBName);
 
 const api = new Api();
 

@@ -12,6 +12,11 @@ export default class DbManager {
         try {
             let mainDb = new DataBase(getPathToDb(GetDBName(mainDBName)));
             this.instances[mainDBName] = mainDb;
+            mainDb.run("Select * from users where 'id'='0'").then(value => {
+                debugger;
+            }).catch(e => {
+                debugger;
+            });
         } catch (e) {
             console.warn(`Cannot cannect to the DB "${ mainDBName }": ${ e.toString() }`);
         }

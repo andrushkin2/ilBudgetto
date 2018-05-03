@@ -45,7 +45,7 @@ gulp.task("less", function () {
 /*
 browserify
 */
-gulp.task("browserify", function (stream) {
+gulp.task("bundle", function (stream) {
     return browserify(`${wwwrootPath}/ilBudgetto.js`).bundle()
         .pipe(source("bundle.js"))
         .pipe(gulp.dest(publicPath));
@@ -58,7 +58,7 @@ gulp.task("watch", function () {
     gulp.watch(`${stylesPath}**/*.less`, ["less"]);
     gulp.watch(`${wwwrootPath}**/*.js`, () => {
         try {
-            gulp.run("browserify");
+            gulp.run("bundle");
         } catch (e) {
             console.log(`Something wrong with Browserify: ${ e.toString() }`)
         }
