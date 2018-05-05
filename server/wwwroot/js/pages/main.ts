@@ -1,7 +1,6 @@
 import { IPage, IPageArgs } from "../pageLoader";
 import MainContainer from "./main_html";
 import { getPageElement, IPageElements, getPageElements } from "./pages";
-import { IUser, IUserSearch } from "../../../server/apiInstances/usersApi";
 import { ServerError } from "../errors";
 
 export default class MainPage implements IPage {
@@ -22,11 +21,7 @@ export default class MainPage implements IPage {
 
         this.pageElements.mainDateSpan.textContent = `${ date.getDate() }/${date.getMonth() + 1 }/${ date.getFullYear() }`;
 
-        args.api.post<IUserSearch, IUser>({
-            method: "Get",
-            type: "User",
-            entity: {}
-        }).then(value => {
+        args.store.user.get().then(value => {
             console.log(value);
         }).catch(e => {
             if (e instanceof ServerError) {

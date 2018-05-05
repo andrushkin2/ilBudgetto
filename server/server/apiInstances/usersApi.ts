@@ -2,7 +2,7 @@ import { IApiEntity } from "../api";
 import { IIdEntity } from "../../wwwroot/ilBudgetto";
 import DataBase from "../dbInstance";
 
-type Partial<T> = {
+export type Partial<T> = {
     [P in keyof T]?: T[P];
 };
 

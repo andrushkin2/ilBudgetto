@@ -5,6 +5,7 @@ import Menu from "./js/menu";
 import UrlState from "./js/urlState";
 import PageLoader, { IPageArgs } from "./js/pageLoader";
 import ClientApi from "./js/clientApi";
+import EntityLoader from "./js/entityLoader";
 
 export interface IIdEntity {
     id: string;
@@ -15,6 +16,7 @@ class Budgetto {
     public support = new IsSupport();
     public urlState: UrlState;
     public api: ClientApi;
+    public store: EntityLoader;
     get vesrion() {
         return this.productVersion;
     }
@@ -39,6 +41,7 @@ class Budgetto {
         });
 
         this.api = new ClientApi(location.origin);
+        this.store = new EntityLoader(this.api);
 
         let menu = menuElement;
         let onClickMenu = (e: Event) => {
@@ -85,7 +88,8 @@ class Budgetto {
                     state: args
                 });
             },
-            api: this.api
+            api: this.api,
+            store: this.store
         };
 
         let page = this.urlState.getUrlState();

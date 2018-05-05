@@ -2,6 +2,7 @@ import { IIdEntity } from "../wwwroot/ilBudgetto";
 import DbManager from "./dbManager";
 import UsersApi from "./apiInstances/usersApi";
 import DataBase, { UsersDBName } from "./dbInstance";
+import IncomingApi from "./apiInstances/incomingApi";
 
 export interface IApiEntity<T, Search> {
     Add: (db: DataBase, entity: T) => PromiseLike<(T & IIdEntity)[]>;
@@ -11,10 +12,11 @@ export interface IApiEntity<T, Search> {
 }
 
 const apies = {
-    User: new UsersApi()
+    User: new UsersApi(),
+    Incoming: new IncomingApi()
 };
 
-type IApiType = "User";
+type IApiType = "User" | "Incoming";
 type IApiMethod = "Get" | "Set" | "Remove" | "Add";
 
 export interface IApiCall<T extends any> {
@@ -45,15 +47,7 @@ export default class Api {
             return Promise.reject(db);
         }
 
-        if (method === "Get") {
-            return api[method](db, req.entity);
-        } else if (method === "Remove") {
-            return api[method](db, req.entity);
-        } else if (method === "Add") {
-            return api[method](db, req.entity);
-        }
-
-        return api[method](db, req.entity);
+        return (api[method] as any)(db, req.entity);
     }
     private getApi(type: IApiType) {
         if (type && type in apies) {

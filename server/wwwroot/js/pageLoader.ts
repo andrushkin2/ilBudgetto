@@ -2,6 +2,7 @@ import UrlState from "./urlState";
 import Header from "./header";
 import { Pages } from "./pages/pages";
 import ClientApi from "./clientApi";
+import EntityLoader from "./entityLoader";
 
 export interface IPage {
     focus: (args: IPageArgs) => void;
@@ -22,6 +23,7 @@ export interface IPageArgs {
     getUrlState: () => IKeyValue;
     setUrlState: (pagename: string, state?: IKeyValue) => void;
     api: ClientApi;
+    store: EntityLoader;
     header: Header;
 }
 
