@@ -5,13 +5,13 @@ let staticConfig: serveStatic.ServeStaticOptions = {
     etag: true,
     extensions: ["html"],
     index: "index.html",
-    maxAge: '1d',
+    maxAge: "1d",
     lastModified: true,
     redirect: false,
     setHeaders: function (res) {
-        res.set('x-timestamp', Date.now().toString())
+        res.set("x-timestamp", Date.now().toString());
     }
-}
+};
 
 
 export { staticConfig as StaticConfig };

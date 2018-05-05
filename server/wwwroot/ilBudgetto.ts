@@ -4,6 +4,7 @@ import Header from "./js/header";
 import Menu from "./js/menu";
 import UrlState from "./js/urlState";
 import PageLoader, { IPageArgs } from "./js/pageLoader";
+import ClientApi from "./js/clientApi";
 
 export interface IIdEntity {
     id: string;
@@ -13,6 +14,7 @@ class Budgetto {
     private productVersion = "0.0.1";
     public support = new IsSupport();
     public urlState: UrlState;
+    public api: ClientApi;
     get vesrion() {
         return this.productVersion;
     }
@@ -31,10 +33,12 @@ class Budgetto {
 
         this.urlState = new UrlState(() => {
             let state = this.urlState.getUrlState();
-            let pageName = state ? state.page : undefined;
-            
-            pageLoader.loadPage(pageName, pageArgs);
+            let pageNameString = state ? state.page : undefined;
+
+            pageLoader.loadPage(pageNameString, pageArgs);
         });
+
+        this.api = new ClientApi(location.origin);
 
         let menu = menuElement;
         let onClickMenu = (e: Event) => {
@@ -75,12 +79,13 @@ class Budgetto {
 
                 return {};
             },
-            setUrlState: (pageName: string, args: any) => {
+            setUrlState: (pageNameStr: string, args: any) => {
                 this.urlState.setUrlState({
-                    page: pageName,
+                    page: pageNameStr,
                     state: args
                 });
-            }
+            },
+            api: this.api
         };
 
         let page = this.urlState.getUrlState();

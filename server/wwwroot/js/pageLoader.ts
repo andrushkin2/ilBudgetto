@@ -1,12 +1,13 @@
 import UrlState from "./urlState";
 import Header from "./header";
 import { Pages } from "./pages/pages";
+import ClientApi from "./clientApi";
 
 export interface IPage {
     focus: (args: IPageArgs) => void;
     initialize: () => void;
     blur: () => void;
-    node: HTMLDivElement
+    node: HTMLDivElement;
 }
 
 export interface IKeyValue {
@@ -20,7 +21,8 @@ export interface IPageArgs {
     isCanGoBack: () => void;
     getUrlState: () => IKeyValue;
     setUrlState: (pagename: string, state?: IKeyValue) => void;
-    header: Header
+    api: ClientApi;
+    header: Header;
 }
 
 interface IPages {

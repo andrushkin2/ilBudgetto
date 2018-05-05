@@ -13,19 +13,19 @@ export interface IPageElements {
 let pages: IKnownPages = {
     main: MainPage,
     payment: Payment
-}
+};
 
-export { pages as Pages }
+export { pages as Pages };
 
 export function getPageElement() {
     let div = document.createElement("div");
     div.classList.add("pageClass");
-    
+
     return div;
 }
 
 export function getPageElements(element: HTMLDivElement) {
-    let elements = element.querySelectorAll('[id]');
+    let elements = element.querySelectorAll("[id]");
     let result: IPageElements = {};
 
     for (let i = 0, len = elements.length; i < len; i++) {

@@ -19,15 +19,40 @@ export default class DataBase {
             }
         });
     }
-    public run(sqlScript: string) {
-        return new Promise((resolve, reject) => {
+    public all<T extends any>(sqlScript: string) {
+        return new Promise<T[]>((resolve, reject) => {
             this.db.serialize(() => {
                 this.db.all(sqlScript, (err, row) => {
                     if (err instanceof Error) {
                         reject(err);
                     } else {
-                        debugger;
                         resolve(row);
+                    }
+                });
+            });
+        });
+    }
+    public insert(sqlScript: string) {
+        return new Promise<number>((resolve, reject) => {
+            this.db.serialize(() => {
+                this.db.run(sqlScript, function(err) {
+                    if (err instanceof Error) {
+                        reject(err);
+                    } else {
+                        resolve((this as any).lastID as number);
+                    }
+                });
+            });
+        });
+    }
+    public remove(sqlScript: string) {
+        return new Promise((resolve, reject) => {
+            this.db.serialize(() => {
+                this.db.run(sqlScript, function (err) {
+                    if (err instanceof Error) {
+                        reject(err);
+                    } else {
+                        resolve();
                     }
                 });
             });
