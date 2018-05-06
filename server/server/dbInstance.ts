@@ -1,7 +1,7 @@
 import * as sqlite3 from "sqlite3";
 
 const usersDBName = "testDB";
-const getDBName = (userId: string) => userId === usersDBName ? `${usersDBName}.db` : `userDB_${ userId }.db`;
+const getDBName = (userId: string) => userId === usersDBName ? `${usersDBName}.db` : `${ userId }.db`;
 
 export { getDBName as GetDBName, usersDBName as UsersDBName };
 

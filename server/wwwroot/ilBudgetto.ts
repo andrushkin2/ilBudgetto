@@ -1,11 +1,12 @@
 
 import IsSupport from "./js/supported";
-import Header from "./js/header";
+import Header, { speachIconId } from "./js/header";
 import Menu from "./js/menu";
 import UrlState from "./js/urlState";
 import PageLoader, { IPageArgs } from "./js/pageLoader";
 import ClientApi from "./js/clientApi";
 import EntityLoader from "./js/entityLoader";
+import SpeachParser from "./js/speachParser";
 
 export interface IIdEntity {
     id: string;
@@ -17,6 +18,7 @@ class Budgetto {
     public urlState: UrlState;
     public api: ClientApi;
     public store: EntityLoader;
+    public speachParser: SpeachParser;
     get vesrion() {
         return this.productVersion;
     }
@@ -42,6 +44,7 @@ class Budgetto {
 
         this.api = new ClientApi(location.origin);
         this.store = new EntityLoader(this.api);
+        this.speachParser = new SpeachParser();
 
         let menu = menuElement;
         let onClickMenu = (e: Event) => {
@@ -102,6 +105,33 @@ class Budgetto {
 
 let budgetto = new Budgetto();
 
+declare var ya: any;
+
 window["budgetto"] = budgetto;
+
+window["createSpeachElement"] = function () {
+    window["textlineElement"] = new ya.speechkit.Textline("headerSpeachId", {
+        apikey: "5ad6ae51-9cc2-4301-85bb-ade0d8a077f1",
+        onInputFinished: function (text) {
+            let recognize = budgetto.speachParser.recognize(text || "");
+            let alertText = "";
+            if (recognize instanceof Error) {
+               alertText =  `${recognize.message}: ${text}`;
+            } else {
+                alertText = `Value: ${recognize.value} ${recognize.currency.name}\nType: General\nComment: ${recognize.comment}`;
+            }
+            alert(alertText);
+        }
+    });
+    let input: HTMLInputElement | null = document.querySelector(`#${speachIconId} input`);
+
+    if (input !== null) {
+        input.readOnly = true;
+        input.addEventListener("click", (e) => {
+            e.preventDefault();
+            return false;
+        });
+    }
+};
 
 export default budgetto;

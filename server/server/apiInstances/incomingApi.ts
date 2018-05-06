@@ -36,7 +36,7 @@ export default class IncomingApi implements IApiEntity<INewIncoming, IIncomingSe
 
     public Add(db: DataBase, entity: INewIncoming) {
         let sql = `INSERT INTO
-                        users(date, value, isActive, typeId, currencyId, comment, tags)
+                        incoming(date, value, isActive, typeId, currencyId, comment, tags)
                     VALUES('${entity.date}', '${entity.value}', '${entity.isActive}', '${entity.typeId}', '${entity.currencyId}', '${entity.comment}', '${entity.tags}')`;
         return db.insert(sql).then(id => {
             return this.Get(db, { id: id.toString() });
@@ -78,6 +78,7 @@ export default class IncomingApi implements IApiEntity<INewIncoming, IIncomingSe
                         currencyId = '${entity.currencyId}', comment = '${entity.comment}',
                         tags = '${entity.tags}'
                     WHERE id = '${entity.id}'`;
+
         return db.all<IIdEntity>(sql).then(() => {
             return this.Get(db, { id: entity.id });
         });

@@ -7,6 +7,21 @@
   box-sizing: border-box;
   height: 51px;
   border-bottom: 1px solid #00a7ae;
+  display: block;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1 1 auto;
+  -webkit-flex: 1 1 auto;
+  -moz-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  -webkit-flex-direction: row;
+  -moz-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
 }
 .header .menuIcon {
   outline: none;
@@ -17,6 +32,23 @@
   box-sizing: border-box;
   overflow: hidden;
   cursor: pointer;
+}
+.header .speachItem {
+  display: inline-block;
+  outline: none;
+  position: relative;
+  height: 100%;
+  width: 30px;
+  box-sizing: border-box;
+  overflow: hidden;
+  font-size: 1em;
+  padding: 2px;
+  margin-left: 20px;
+}
+.header .speachItem input {
+  border: 1px solid black;
+  color: transparent;
+  border-radius: 50px;
 }
 .menu {
   box-sizing: border-box;

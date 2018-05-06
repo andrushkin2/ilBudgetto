@@ -1,6 +1,7 @@
 import ClientApi from "./clientApi";
 import { IUserSearch, IUser, INewUser } from "../../server/apiInstances/usersApi";
 import { IIdEntity } from "../ilBudgetto";
+import { IIncomingSearch, IIncoming, INewIncoming } from "../../server/apiInstances/incomingApi";
 
 
 export default class EntityLoader {
@@ -28,6 +29,29 @@ export default class EntityLoader {
             entity: user,
             method: "Add",
             type: "User"
+        })
+    };
+
+    public readonly incoming = {
+        get: (search?: IIncomingSearch) => this.api.post<IIncomingSearch, IIncoming>({
+            entity: search as IIncomingSearch,
+            method: "Get",
+            type: "Incoming"
+        }),
+        add: (incoming: INewIncoming) => this.api.post<INewIncoming, IIncoming>({
+            entity: incoming,
+            method: "Add",
+            type: "Incoming"
+        }),
+        remove: (incoming: IIdEntity) => this.api.post<IIdEntity, IIdEntity>({
+            entity: incoming,
+            method: "Remove",
+            type: "Incoming"
+        }),
+        set: (incoming: IIncoming) => this.api.post<IIncoming, IIncoming>({
+            entity: incoming,
+            method: "Set",
+            type: "Incoming"
         })
     };
 }

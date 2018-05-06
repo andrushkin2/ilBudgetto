@@ -9,6 +9,9 @@
     box-sizing: border-box;
     height: @headerHeight;
     border-bottom: 1px solid darken(@headColor, 5%);
+    .box();
+    .flex(1 1 auto);
+    .flex-direction(row);
 
 
     .menuIcon {
@@ -20,5 +23,24 @@
         box-sizing: border-box;
         overflow: hidden;
         cursor: pointer;
+    }
+
+    .speachItem {
+        display: inline-block;
+        outline: none;
+        position: relative;
+        height: 100%;
+        width: 30px;
+        box-sizing: border-box;
+        overflow: hidden;
+        font-size: 1em;
+        padding: 2px;
+        margin-left: 20px;
+
+        input {
+            border: 1px solid black;
+            color: transparent;
+            border-radius: 50px;
+        }
     }
 }
