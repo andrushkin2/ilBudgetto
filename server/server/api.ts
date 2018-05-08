@@ -3,6 +3,9 @@ import DbManager from "./dbManager";
 import UsersApi from "./apiInstances/usersApi";
 import DataBase, { UsersDBName } from "./dbInstance";
 import IncomingApi from "./apiInstances/incomingApi";
+import CurrencyApi from "./apiInstances/currencyApi";
+import TypesApi from "./apiInstances/typesApi";
+import StableWaste from "./apiInstances/stableWaste";
 
 export interface IApiEntity<T, Search> {
     Add: (db: DataBase, entity: T) => PromiseLike<(T & IIdEntity)[]>;
@@ -13,10 +16,13 @@ export interface IApiEntity<T, Search> {
 
 const apies = {
     User: new UsersApi(),
-    Incoming: new IncomingApi()
+    Incoming: new IncomingApi(),
+    Currency: new CurrencyApi(),
+    Types: new TypesApi(),
+    StableWaste: new StableWaste()
 };
 
-type IApiType = "User" | "Incoming";
+type IApiType = "User" | "Incoming" | "Currency" | "Types" | "StableWaste";
 type IApiMethod = "Get" | "Set" | "Remove" | "Add";
 
 export interface IApiCall<T extends any> {

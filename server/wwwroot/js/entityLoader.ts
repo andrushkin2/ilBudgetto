@@ -2,6 +2,9 @@ import ClientApi from "./clientApi";
 import { IUserSearch, IUser, INewUser } from "../../server/apiInstances/usersApi";
 import { IIdEntity } from "../ilBudgetto";
 import { IIncomingSearch, IIncoming, INewIncoming } from "../../server/apiInstances/incomingApi";
+import { ICurrencySearch, ICurrency } from "../../server/apiInstances/currencyApi";
+import { ITypeSearch, INewType, IType } from "../../server/apiInstances/typesApi";
+import { IStableWasteSearch, IStableWaste, INewStableWaste } from "../../server/apiInstances/stableWaste";
 
 
 export default class EntityLoader {
@@ -52,6 +55,60 @@ export default class EntityLoader {
             entity: incoming,
             method: "Set",
             type: "Incoming"
+        })
+    };
+
+    public readonly currency = {
+        get: (search?: ICurrencySearch) => this.api.post<ICurrencySearch, ICurrency>({
+            entity: search as ICurrencySearch,
+            method: "Get",
+            type: "Currency"
+        })
+    };
+
+    public readonly types = {
+        get: (search?: ITypeSearch) => this.api.post<ITypeSearch, ICurrency>({
+            entity: search as ITypeSearch,
+            method: "Get",
+            type: "Types"
+        }),
+        add: (type: INewType) => this.api.post<INewType, IType>({
+            entity: type,
+            method: "Add",
+            type: "Types"
+        }),
+        remove: (type: IIdEntity) => this.api.post<IIdEntity, IIdEntity>({
+            entity: type,
+            method: "Remove",
+            type: "Types"
+        }),
+        set: (type: IType) => this.api.post<IType, IType>({
+            entity: type,
+            method: "Set",
+            type: "Types"
+        })
+    };
+
+    public readonly stableWaste = {
+        get: (search?: IStableWasteSearch) => this.api.post<IStableWasteSearch, IStableWaste>({
+            entity: search as IStableWasteSearch,
+            method: "Get",
+            type: "StableWaste"
+        }),
+        add: (type: INewStableWaste) => this.api.post<INewStableWaste, IStableWaste>({
+            entity: type,
+            method: "Add",
+            type: "StableWaste"
+        }),
+        remove: (type: IIdEntity) => this.api.post<IIdEntity, IIdEntity>({
+            entity: type,
+            method: "Remove",
+            type: "StableWaste"
+        }),
+        set: (type: IStableWaste) => this.api.post<IStableWaste, IStableWaste>({
+            entity: type,
+            method: "Set",
+            type: "StableWaste"
         })
     };
 }
