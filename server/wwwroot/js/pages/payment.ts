@@ -2,20 +2,16 @@ import { IPage, IPageArgs } from "../pageLoader";
 import { getPageElement, getPageElements, IPageElements } from "./pages";
 import PaymentContainer from "./payment_html";
 import IsSupport from "../supported";
+import { IIncoming } from "../../../server/apiInstances/incomingApi";
+import { ITag } from "../../../server/apiInstances/tagsApi";
+import { parseServerDate, toServerDate } from "../dateParser";
 
 let isSupport = new IsSupport();
 
 interface IPageState {
     event?: "plus" | "minus";
     id?: string;
-}
-
-interface IRecord {
-    id?: string;
-    value: number;
-    comment: string;
-    tags: string[];
-    date: string;
+    typeId?: number;
 }
 
 interface IFormData {
@@ -23,17 +19,20 @@ interface IFormData {
     comment: string;
     tags: string[];
     date: Date | null | undefined;
+    currencyId: number;
 }
 
 export default class Payment implements IPage {
     private content: HTMLDivElement;
     private args: IPageArgs;
-    private isAdd = true;
     private paymentValue: HTMLInputElement;
     private paymentComment: HTMLInputElement;
     private paymentTag: HTMLInputElement;
     private paymentDate: HTMLInputElement;
+    private paymentCurrency: HTMLSelectElement;
     private pageElements: IPageElements;
+    private tags: ITag[] = [];
+    private allTags: ITag[] = [];
     constructor() {
         let div = getPageElement();
         div.innerHTML = PaymentContainer();
@@ -41,6 +40,7 @@ export default class Payment implements IPage {
         this.pageElements = getPageElements(div);
         this.paymentValue = this.pageElements.paymentValue as HTMLInputElement;
         this.paymentComment = this.pageElements.paymentComment as HTMLInputElement;
+        this.paymentCurrency = this.pageElements.paymentCurrency as HTMLSelectElement;
         this.paymentTag = this.pageElements.paymentTag as HTMLInputElement;
         this.paymentDate = this.pageElements.paymentDate as HTMLInputElement;
 
@@ -59,10 +59,62 @@ export default class Payment implements IPage {
         e.preventDefault();
 
         let values = this.getFormValues();
+        this.switchButtonsState(true);
 
         if (this.isValid(values)) {
             alert("Form is valid");
+            let state = this.args.getUrlState() as IPageState;
+
+            // add a new record
+            let task: Promise<IIncoming[]>;
+            if (!state.id) {
+                task = this.args.store.incoming.add({
+                    comment: values.comment,
+                    date: toServerDate(new Date),
+                    isActive: 1,
+                    tags: "",
+                    value: values.value,
+                    currencyId: values.currencyId,
+                    typeId: state.typeId || 1
+                });
+            } else {
+                task = this.args.store.incoming.get({ id: state.id }).then(incoming => {
+                    let data = incoming[0];
+
+                    return this.args.store.incoming.set({ ...data, ...{
+                        comment: values.comment,
+                        date: toServerDate(new Date),
+                        tags: "",
+                        value: values.value,
+                        currencyId: values.currencyId
+                    }});
+                });
+            }
+
+            task.then(() => {
+                this.switchButtonsState(false);
+                if (this.args.isCanGoBack()) {
+                    this.args.goBack();
+                } else {
+                    this.args.setUrlState("main");
+                }
+            }).catch(err => {
+                let mess = err.toString();
+                if (err instanceof Error) {
+                    mess = err.message;
+                }
+                alert(mess);
+                this.switchButtonsState(false);
+            });
+        } else {
+            this.switchButtonsState(false);
         }
+    }
+
+    private switchButtonsState(isBlock: boolean) {
+        let disabled = isBlock === true ? true : false;
+        (this.pageElements.paymentApply as HTMLButtonElement).disabled = disabled;
+        (this.pageElements.paymentCancel as HTMLButtonElement).disabled = disabled;
     }
 
     private onCancel(e: Event) {
@@ -71,7 +123,7 @@ export default class Payment implements IPage {
         if (this.args.isCanGoBack()) {
             this.args.goBack();
         } else {
-            this.args.setUrlState("main", {});
+            this.args.setUrlState("main", {let: undefined});
         }
     }
 
@@ -87,6 +139,13 @@ export default class Payment implements IPage {
         if (typeof comment !== "string" || comment === undefined || comment === null) {
             alert("Comment should be a string");
             this.paymentComment.focus();
+            return false;
+        }
+
+        let currency = values.currencyId;
+        if (typeof currency !== "number" || currency === undefined || currency === null || isNaN(currency)) {
+            alert("Value should be a number");
+            this.paymentCurrency.focus();
             return false;
         }
 
@@ -112,7 +171,8 @@ export default class Payment implements IPage {
             value: parseFloat(this.paymentValue.value.trim()),
             comment: this.paymentComment.value.trim(),
             tags: this.getTags(this.paymentTag.value.trim()),
-            date: this.paymentDate.valueAsDate as Date | null | undefined
+            date: this.paymentDate.valueAsDate as Date | null | undefined,
+            currencyId: parseInt(this.paymentCurrency.value) || 1
         };
     }
 
@@ -120,13 +180,13 @@ export default class Payment implements IPage {
         return tag.split("#").map(value => value.trim());
     }
 
-    private fillForm(record: IRecord) {
+    private fillForm(record: IIncoming) {
         this.paymentValue.value = record.value.toString();
         this.paymentComment.value = record.comment;
-        this.paymentTag.value = record.tags
+        this.paymentTag.value = this.tags
             .map(value => `#${ value }`)
             .join(" ");
-        this.paymentDate.valueAsDate = new Date(record.date);
+        this.paymentDate.valueAsDate = parseServerDate(record.date);
     }
 
     private clearForm() {
@@ -134,25 +194,47 @@ export default class Payment implements IPage {
         this.paymentComment.value = "";
         this.paymentTag.value = "";
         this.paymentDate.value = "";
+        this.tags = [];
     }
 
     private loadData(args: IPageState) {
-        if (this.isAdd) {
-            return Promise.resolve<undefined | IRecord>(undefined);
+        if (args.id === undefined) {
+            return this.getTagsArray().then(() => Promise.resolve<IIncoming | undefined>(undefined));
         }
 
-        let record: IRecord = {
-            comment: "Shopping",
-            date: new Date().toString(),
-            tags: ["tea", "Ontario"],
-            value: 123.32,
-            id: args.id
-        };
-        return Promise.resolve<IRecord>(record);
+        return this.args.store.incoming.get({ id: args.id }).then(record => {
+            if (record && record.length === 1) {
+                let data = record[0];
+
+                return this.getTagsArray(data.tags).then(tags => {
+                    this.tags = tags;
+
+                    return data;
+                });
+            }
+
+            throw new Error("Cannot find incoming with given ID");
+        });
+    }
+
+    private getTagsArray(tags?: string) {
+
+        return this.args.store.tags.get().then(tagsArray => {
+            this.allTags = tagsArray.map(arr => arr[0]);
+
+            if (!!tags && !!tags.trim()) {
+                let splitted = tags.trim().split(",");
+                let filterFunc = (tag: ITag) => splitted.indexOf(tag.id) !== -1;
+
+                return this.allTags.filter(filterFunc);
+            }
+
+            return [] as ITag[];
+        });
     }
 
     private checkState(state: IPageState) {
-        return state && state.event && (state.event === "minus" || state.event === "plus");
+        return state && (state.event && (state.event === "minus" || state.event === "plus") && !state.id);
     }
 
     public focus(args: IPageArgs) {
@@ -164,14 +246,25 @@ export default class Payment implements IPage {
             args.isCanGoBack() ? args.goBack() : args.setUrlState("main");
         }
 
-        this.isAdd = state.id === undefined;
+        this.clearForm();
 
-        let data = this.loadData(state);
-        data.then((value) => {
-            if (value !== undefined) {
-                this.fillForm(value);
-            }
-        });
+        this.loadData(state).then((value) => {
+                if (value !== undefined) {
+                    this.fillForm(value);
+                } else {
+                    this.clearForm();
+                    this.paymentValue.value = `${ state.event === "plus" ? "" : "-" }0`;
+                }
+            }).catch(e => {
+                let message = e.toString();
+                if (e instanceof Error) {
+                    message = e.message;
+                }
+
+                alert(message);
+
+                args.goBack();
+            });
     }
 
     public initialize() {
@@ -186,6 +279,7 @@ export default class Payment implements IPage {
 
     public blur() {
         this.clearForm();
+        this.switchButtonsState(false);
     }
 
     get node() {
