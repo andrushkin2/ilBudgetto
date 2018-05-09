@@ -9,6 +9,8 @@ export type Partial<T> = {
 export interface INewUser {
     email: string;
     name: string;
+    lastValue: string;
+    lastDate: number;
 }
 
 export interface IUser extends IIdEntity, INewUser {}
@@ -40,6 +42,8 @@ export default class UsersApi implements IApiEntity<INewUser, IUserSearch> {
             } else {
                 search.name && parts.push(`name LIKE '%${search.name}%'`);
                 search.email && parts.push(`email LIKE '%${search.email}%'`);
+                search.lastDate && parts.push(`lastDate = '${search.email}'`);
+                search.lastValue && parts.push(`lastValue = '${search.email}'`);
             }
         } else {
             parts = ["1"];
