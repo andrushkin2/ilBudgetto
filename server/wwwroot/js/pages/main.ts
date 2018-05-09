@@ -2,10 +2,10 @@ import { IPage, IPageArgs } from "../pageLoader";
 import MainContainer from "./main_html";
 import { getPageElement, IPageElements, getPageElements } from "./pages";
 import { ServerError } from "../errors";
-import { toServerDate } from "../dateParser";
 
 export default class MainPage implements IPage {
     private content: HTMLDivElement;
+    private args: IPageArgs;
     private pageElements: IPageElements;
     constructor() {
         let div = getPageElement();
@@ -18,21 +18,13 @@ export default class MainPage implements IPage {
     }
 
     public focus(args: IPageArgs) {
+        this.args = args;
+
         let date = new Date();
 
         this.pageElements.mainDateSpan.textContent = `${ date.getDate() }/${date.getMonth() + 1 }/${ date.getFullYear() }`;
 
-        args.store.incoming.get({
-            // fromDate: toServerDate(new Date(new Date().setDate(14))),
-            // id: "3"
-           /*  comment: "Beer",
-            currencyId: 1,
-            isActive: 1,
-            typeId: 1,
-            tags: "",
-            value: 34.5,
-            date: toServerDate(new Date()) */
-        }).then(value => {
+        args.store.incoming.get().then(value => {
             console.log(value);
         }).catch(e => {
             if (e instanceof ServerError) {

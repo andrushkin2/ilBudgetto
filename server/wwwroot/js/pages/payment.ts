@@ -242,10 +242,6 @@ export default class Payment implements IPage {
 
         this.args = args;
 
-        if (!this.checkState(state)) {
-            args.isCanGoBack() ? args.goBack() : args.setUrlState("main");
-        }
-
         this.clearForm();
 
         this.loadData(state).then((value) => {

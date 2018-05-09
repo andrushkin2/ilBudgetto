@@ -1,0 +1,56 @@
+@import "../variables";
+
+#listPageId {
+    @buttonColor: rgb(0, 191, 199);
+    @whiteBack: #43adba;
+    @color: #eafbfc;
+    overflow: hidden;
+    height: 100%;;
+
+    .list {
+        overflow-y: scroll;
+        height: 100%;
+        -webkit-overflow-scrolling: touch;
+    }
+    .date {
+        padding: 10px;
+        text-align: center;
+        background: @buttonColor;
+        font-size: 1.6em;
+        padding: 2px 7px;
+        border-radius: 5px;
+    }
+
+    .listRow {
+        padding: 5px;
+    }
+
+    .listRowDate {
+        background: @whiteBack;
+        color: @color;
+        padding: 5px 10px;
+    }
+
+    .listIncomingRow {
+        .box();
+        .flex-direction(row);
+        padding: 5px;
+        cursor: pointer;
+
+        .icon, .value {
+            .flex(0 0 auto);
+            padding: 0 5px;
+        }
+
+        .text {
+            .flex(1 1 auto);
+            padding: 0 5px;
+        }
+    }
+
+    .total {
+        text-align: right;
+        padding: 0 10px;
+        border-top:  1px solid @buttonColor;
+    }
+}

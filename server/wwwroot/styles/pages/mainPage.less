@@ -63,6 +63,10 @@
     }
 
     .actionButton {
+        .box();
+        .justify-content-center();
+        .align-items(center);
+        .flex-direction(row);
         .flex(0 1 auto);
         margin: 0 30px;
         width: 60px;
@@ -79,6 +83,23 @@
             width: 100%;
             height: 100%;
             display: inline-block;
+        }
+    }
+
+    .list {
+        .box();
+        .flex(1 1 auto);
+        .flex-direction(column);
+        .justify-content-center();
+        .align-items(center);
+        height: 80px;
+
+        .actionButton {
+            width: auto;
+            padding: 0 10px;
+            .box();
+            .justify-content-center();
+            .align-items(center);
         }
     }
 }

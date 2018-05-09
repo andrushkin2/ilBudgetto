@@ -6,4 +6,23 @@ const parseServerDate = (serverDate: number) => {
     return new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), 0, 0, 0, 0);
 };
 
-export { toServerDate, parseServerDate };
+const getLastDate = (date: Date) => new Date(date.getFullYear(), date.getMonth() + 1, 0, 0, 0, 0).getDate();
+
+export interface IDatePeriod {
+    fromDate: Date;
+    toDate: Date;
+}
+
+const addDays = (date: Date, days: number) => new Date(date.getFullYear(), date.getMonth(), date.getDate() + days, date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds());
+
+const getMonthPeriod = (date: Date): IDatePeriod => {
+    let startDate = new Date(date.getFullYear(), date.getMonth(), 1, 0, 0, 0, 0);
+    let endDate = new Date(date.getFullYear(), date.getMonth(), getLastDate(date), 23, 59, 59, 999);
+
+    return {
+        fromDate: startDate,
+        toDate: endDate
+    };
+};
+
+export { toServerDate, parseServerDate, getMonthPeriod, getLastDate, addDays };

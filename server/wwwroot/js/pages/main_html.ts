@@ -18,6 +18,12 @@ const MainContainer = () => `<div id="mainPageId">
         <div class="chart" id="mainChart"></div>
     </div>
 
+    <div class="list">
+        <button class="actionButton" id="mainListButton">
+            <a class="buttonLink" href="#list">Monthly expenses</a>
+        </button>
+    </div>
+
     <div class="buttons" id="mainButtons">
         <button class="actionButton" id="plusButton">
             <a class="buttonLink" href="#payment,event:plus,typeId:1">+</a>
@@ -27,7 +33,7 @@ const MainContainer = () => `<div id="mainPageId">
         </button>
     </div>
 
-</div>`
+</div>`;
 
 
 export default MainContainer;

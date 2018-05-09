@@ -81,7 +81,7 @@ export default class UrlState {
     public goBack() {
         history.back();
     }
-    public setHash(child: IUrlStateObj | string, addToHistory = false) {
+    public setHash(child: IUrlStateObj | string, addToHistory = true) {
         let encodedState = typeof child === "string" ? child : this.getHash(child);
 
         address.set(encodedState, addToHistory);
@@ -95,7 +95,7 @@ export default class UrlState {
     public getUrlState() {
         return this.currentState;
     }
-    public setUrlState(url: IUrlStateObj, addToHistory = false) {
+    public setUrlState(url: IUrlStateObj, addToHistory = true) {
         this.setHash(url, addToHistory);
     }
 }
