@@ -5,6 +5,7 @@ import { IIncomingSearch, IIncoming, INewIncoming } from "../../server/apiInstan
 import { ICurrencySearch, ICurrency } from "../../server/apiInstances/currencyApi";
 import { ITypeSearch, INewType, IType } from "../../server/apiInstances/typesApi";
 import { IStableWasteSearch, IStableWaste, INewStableWaste } from "../../server/apiInstances/stableWaste";
+import { IStableIncomeSearch, INewStableIncome, IStableIncome } from "../../server/apiInstances/stableIncome";
 
 
 export default class EntityLoader {
@@ -109,6 +110,29 @@ export default class EntityLoader {
             entity: type,
             method: "Set",
             type: "StableWaste"
+        })
+    };
+
+    public readonly stableIncome = {
+        get: (search?: IStableIncomeSearch) => this.api.post<IStableIncomeSearch, IStableWaste>({
+            entity: search as IStableIncomeSearch,
+            method: "Get",
+            type: "StableIncome"
+        }),
+        add: (type: INewStableIncome) => this.api.post<INewStableIncome, IStableIncome>({
+            entity: type,
+            method: "Add",
+            type: "StableIncome"
+        }),
+        remove: (type: IIdEntity) => this.api.post<IIdEntity, IIdEntity>({
+            entity: type,
+            method: "Remove",
+            type: "StableIncome"
+        }),
+        set: (type: IStableIncome) => this.api.post<IStableIncome, IStableIncome>({
+            entity: type,
+            method: "Set",
+            type: "StableIncome"
         })
     };
 }
