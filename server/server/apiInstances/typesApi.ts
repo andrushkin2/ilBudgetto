@@ -48,7 +48,7 @@ export default class TypesApi implements IApiEntity<INewType, ITypeSearch> {
     }
 
     public Set(db: DataBase, entity: IType) {
-        let sql = `UPDATE types SET name = '${entity.name}', email = '${entity.icon}' where id = '${entity.id}'`;
+        let sql = `UPDATE types SET name = '${entity.name}', email = '${entity.icon}' WHERE id = '${entity.id}'`;
         return db.all<IIdEntity>(sql).then(() => {
             return this.Get(db, { id: entity.id });
         });

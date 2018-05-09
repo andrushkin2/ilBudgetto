@@ -7,6 +7,7 @@ import CurrencyApi from "./apiInstances/currencyApi";
 import TypesApi from "./apiInstances/typesApi";
 import StableWaste from "./apiInstances/stableWaste";
 import StableIcome from "./apiInstances/stableIncome";
+import TagApi from "./apiInstances/tagsApi";
 
 export interface IApiEntity<T, Search> {
     Add: (db: DataBase, entity: T) => PromiseLike<(T & IIdEntity)[]>;
@@ -21,10 +22,11 @@ const apies = {
     Currency: new CurrencyApi(),
     Types: new TypesApi(),
     StableWaste: new StableWaste(),
-    StableIncome: new StableIcome()
+    StableIncome: new StableIcome(),
+    Tags: new TagApi()
 };
 
-type IApiType = "User" | "Incoming" | "Currency" | "Types" | "StableWaste" | "StableIncome";
+type IApiType = "User" | "Incoming" | "Currency" | "Types" | "StableWaste" | "StableIncome" | "Tags";
 type IApiMethod = "Get" | "Set" | "Remove" | "Add";
 
 export interface IApiCall<T extends any> {

@@ -6,6 +6,7 @@ import { ICurrencySearch, ICurrency } from "../../server/apiInstances/currencyAp
 import { ITypeSearch, INewType, IType } from "../../server/apiInstances/typesApi";
 import { IStableWasteSearch, IStableWaste, INewStableWaste } from "../../server/apiInstances/stableWaste";
 import { IStableIncomeSearch, INewStableIncome, IStableIncome } from "../../server/apiInstances/stableIncome";
+import { ITagSearch, ITag, INewTag } from "../../server/apiInstances/tagsApi";
 
 
 export default class EntityLoader {
@@ -133,6 +134,29 @@ export default class EntityLoader {
             entity: type,
             method: "Set",
             type: "StableIncome"
+        })
+    };
+
+    public readonly tags = {
+        get: (search?: ITagSearch) => this.api.post<ITagSearch, ITag>({
+            entity: search as ITagSearch,
+            method: "Get",
+            type: "Tags"
+        }),
+        add: (type: INewTag) => this.api.post<INewTag, INewTag>({
+            entity: type,
+            method: "Add",
+            type: "Tags"
+        }),
+        remove: (type: IIdEntity) => this.api.post<IIdEntity, IIdEntity>({
+            entity: type,
+            method: "Remove",
+            type: "Tags"
+        }),
+        set: (type: ITag) => this.api.post<ITag, ITag>({
+            entity: type,
+            method: "Set",
+            type: "Tags"
         })
     };
 }

@@ -6,7 +6,7 @@ import IsSupport from "../supported";
 let isSupport = new IsSupport();
 
 interface IPageState {
-    event?: "plus" | "minus",
+    event?: "plus" | "minus";
     id?: string;
 }
 
@@ -23,7 +23,7 @@ interface IFormData {
     comment: string;
     tags: string[];
     date: Date | null | undefined;
-};
+}
 
 export default class Payment implements IPage {
     private content: HTMLDivElement;
@@ -52,7 +52,7 @@ export default class Payment implements IPage {
 
         this.pageElements.paymentCancel.addEventListener("click", (e) => {
             this.onCancel(e);
-        }, false);  
+        }, false);
     }
 
     private onApply(e: Event) {
@@ -106,7 +106,7 @@ export default class Payment implements IPage {
 
         return true;
     }
-    
+
     private getFormValues(): IFormData {
         return {
             value: parseFloat(this.paymentValue.value.trim()),
@@ -125,7 +125,7 @@ export default class Payment implements IPage {
         this.paymentComment.value = record.comment;
         this.paymentTag.value = record.tags
             .map(value => `#${ value }`)
-            .join(" ")
+            .join(" ");
         this.paymentDate.valueAsDate = new Date(record.date);
     }
 
@@ -147,7 +147,7 @@ export default class Payment implements IPage {
             tags: ["tea", "Ontario"],
             value: 123.32,
             id: args.id
-        }
+        };
         return Promise.resolve<IRecord>(record);
     }
 
