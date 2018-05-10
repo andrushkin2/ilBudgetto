@@ -1,8 +1,9 @@
 import { IPage, IPageArgs } from "../pageLoader";
 import { IPageElements, getPageElement, getPageElements } from "./pages";
 import ListContainer, { getIncomingListRow } from "./list_html";
-import { IDatePeriod, getMonthPeriod, toServerDate, parseServerDate, getLastDate, addDays } from "../dateParser";
+import { IDatePeriod, getMonthPeriod, toServerDate, parseServerDate, addDays, months } from "../dateParser";
 import { IIncoming } from "../../../server/apiInstances/incomingApi";
+import { ICurrency } from "../../../server/apiInstances/currencyApi";
 
 interface IPageState {
     date?: string;
@@ -12,11 +13,15 @@ interface IData {
     [key: string]: IIncoming[];
 }
 
+export interface ICurrencyObject {
+    [key: number]: string;
+}
+
 export default class ListPage implements IPage {
     private content: HTMLDivElement;
     private pageElements: IPageElements;
     private listBlock: HTMLDivElement;
-    private listDate: HTMLDivElement;
+    private mainDateSpan: HTMLSpanElement;
     private args: IPageArgs;
 
     constructor() {
@@ -25,7 +30,7 @@ export default class ListPage implements IPage {
 
         this.pageElements = getPageElements(div);
         this.listBlock = this.pageElements.listBlock as HTMLDivElement;
-        this.listDate = this.pageElements.listDate as HTMLDivElement;
+        this.mainDateSpan = this.pageElements.mainDateSpan as HTMLSpanElement;
 
         this.content = div;
     }
@@ -72,6 +77,20 @@ export default class ListPage implements IPage {
         this.listBlock.innerHTML = "";
     }
 
+    private getDate(date: Date) {
+        return `${ months[date.getMonth()] } ${ date.getFullYear() }`;
+    }
+
+    private getCurrencyObject(currency: ICurrency[]) {
+        let res: ICurrencyObject = {};
+
+        currency.forEach(value => {
+            res[value.id] = value.name;
+        });
+
+        return res;
+    }
+
     public focus(args: IPageArgs) {
         this.args = args;
 
@@ -82,6 +101,8 @@ export default class ListPage implements IPage {
 
         this.clearList();
 
+        this.mainDateSpan.textContent = this.getDate(date);
+
         this.loadData(getMonthPeriod(date)).then(data => {
             let keys = Object.keys(data);
             let rows = "";
@@ -91,7 +112,7 @@ export default class ListPage implements IPage {
                 let key = keys[i];
                 let incomingArr = data[key];
 
-                rows += getIncomingListRow(incomingArr, parseServerDate(parseInt(key)), getTotal(incomingArr));
+                rows += getIncomingListRow(incomingArr, parseServerDate(parseInt(key)), getTotal(incomingArr), this.getCurrencyObject(args.getCurrency()));
             }
 
             this.listBlock.innerHTML = rows;

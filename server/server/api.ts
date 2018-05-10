@@ -26,8 +26,8 @@ const apies = {
     Tags: new TagApi()
 };
 
-type IApiType = "User" | "Incoming" | "Currency" | "Types" | "StableWaste" | "StableIncome" | "Tags";
-type IApiMethod = "Get" | "Set" | "Remove" | "Add";
+export type IApiType = "User" | "Incoming" | "Currency" | "Types" | "StableWaste" | "StableIncome" | "Tags";
+export type IApiMethod = "Get" | "Set" | "Remove" | "Add";
 
 export interface IApiCall<T extends any> {
     type: IApiType;
@@ -40,7 +40,7 @@ export default class Api {
     constructor(dbManage: DbManager) {
         this.dbManager = dbManage;
     }
-    public parseRequest(req: IApiCall<any>) {
+    public parseRequest<T extends any>(req: IApiCall<T>) {
         let api = this.getApi(req.type);
         if (api instanceof Error) {
             return Promise.reject(api);
@@ -59,7 +59,7 @@ export default class Api {
 
         return (api[method] as any)(db, req.entity);
     }
-    private getApi(type: IApiType) {
+    public getApi(type: IApiType) {
         if (type && type in apies) {
             return apies[type];
         }

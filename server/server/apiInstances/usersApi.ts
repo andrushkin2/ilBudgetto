@@ -9,7 +9,7 @@ export type Partial<T> = {
 export interface INewUser {
     email: string;
     name: string;
-    lastValue: string;
+    lastValue: number;
     lastDate: number;
 }
 
@@ -54,7 +54,9 @@ export default class UsersApi implements IApiEntity<INewUser, IUserSearch> {
     }
 
     public Set(db: DataBase, entity: IUser) {
-        let sql = `UPDATE users SET name = '${entity.name}', email = '${ entity.email }' where id = '${entity.id}'`;
+        let sql = `UPDATE users SET name = '${entity.name}', email = '${entity.email}',
+            lastDate = '${entity.lastDate}', lastValue = '${entity.lastValue }'
+            WHERE id = '${entity.id}'`;
         return db.all<IIdEntity>(sql).then(() => {
             return this.Get(db, { id: entity.id });
         });

@@ -7,6 +7,8 @@ import PageLoader, { IPageArgs } from "./js/pageLoader";
 import ClientApi from "./js/clientApi";
 import EntityLoader from "./js/entityLoader";
 import SpeachParser from "./js/speachParser";
+import { IUser } from "../server/apiInstances/usersApi";
+import { ICurrency } from "../server/apiInstances/currencyApi";
 
 export interface IIdEntity {
     id: string;
@@ -18,6 +20,7 @@ class Budgetto {
     public urlState: UrlState;
     public api: ClientApi;
     public store: EntityLoader;
+    private user: IUser;
     public speachParser: SpeachParser;
     get vesrion() {
         return this.productVersion;
@@ -92,13 +95,45 @@ class Budgetto {
                 });
             },
             api: this.api,
-            store: this.store
+            store: this.store,
+            getCurrency: () => currency,
+            getUser: () => this.user,
+            reloadUser: () => this.loadUser()
         };
 
         let page = this.urlState.getUrlState();
         let pageName = page && page.page || undefined;
 
-        pageLoader.loadPage(pageName, pageArgs);
+        let currency: ICurrency[];
+
+        Promise.all([
+            this.loadUser(),
+            this.store.currency.get()]).then(data => {
+                let userData = data[0];
+                let currencyData = data[1];
+
+                if (!userData) {
+                    throw new Error("Cannot get user info");
+                }
+
+                currency = currencyData;
+
+                pageLoader.loadPage(pageName, pageArgs);
+            });
+    }
+
+    private loadUser() {
+        return this.store.user.get({ id: "1" }).then(data => {
+            let userData = data[0];
+
+            if (!userData) {
+                throw new Error("Cannot get user info");
+            }
+
+            this.user = userData;
+
+            return userData;
+        });
     }
 }
 

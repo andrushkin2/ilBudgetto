@@ -18,7 +18,7 @@ interface IFormData {
     value: number;
     comment: string;
     tags: string[];
-    date: Date | null | undefined;
+    date: Date;
     currencyId: number;
 }
 
@@ -62,7 +62,6 @@ export default class Payment implements IPage {
         this.switchButtonsState(true);
 
         if (this.isValid(values)) {
-            alert("Form is valid");
             let state = this.args.getUrlState() as IPageState;
 
             // add a new record
@@ -83,7 +82,7 @@ export default class Payment implements IPage {
 
                     return this.args.store.incoming.set({ ...data, ...{
                         comment: values.comment,
-                        date: toServerDate(new Date),
+                        date: toServerDate(values.date),
                         tags: "",
                         value: values.value,
                         currencyId: values.currencyId
@@ -104,6 +103,7 @@ export default class Payment implements IPage {
                     mess = err.message;
                 }
                 alert(mess);
+                console.error(err);
                 this.switchButtonsState(false);
             });
         } else {
@@ -171,7 +171,7 @@ export default class Payment implements IPage {
             value: parseFloat(this.paymentValue.value.trim()),
             comment: this.paymentComment.value.trim(),
             tags: this.getTags(this.paymentTag.value.trim()),
-            date: this.paymentDate.valueAsDate as Date | null | undefined,
+            date: this.paymentDate.valueAsDate as Date,
             currencyId: parseInt(this.paymentCurrency.value) || 1
         };
     }
@@ -231,10 +231,6 @@ export default class Payment implements IPage {
 
             return [] as ITag[];
         });
-    }
-
-    private checkState(state: IPageState) {
-        return state && (state.event && (state.event === "minus" || state.event === "plus") && !state.id);
     }
 
     public focus(args: IPageArgs) {

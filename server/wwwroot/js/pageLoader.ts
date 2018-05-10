@@ -3,6 +3,8 @@ import Header from "./header";
 import { Pages } from "./pages/pages";
 import ClientApi from "./clientApi";
 import EntityLoader from "./entityLoader";
+import { IUser } from "../../server/apiInstances/usersApi";
+import { ICurrency } from "../../server/apiInstances/currencyApi";
 
 export interface IPage {
     focus: (args: IPageArgs) => void;
@@ -25,6 +27,9 @@ export interface IPageArgs {
     api: ClientApi;
     store: EntityLoader;
     header: Header;
+    getUser: () => IUser;
+    reloadUser: () => Promise<IUser>;
+    getCurrency: () => ICurrency[];
 }
 
 interface IPages {

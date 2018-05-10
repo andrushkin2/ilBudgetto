@@ -10,12 +10,15 @@
     .list {
         overflow-y: scroll;
         height: 100%;
+        touch-action: pan-y;
         -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
     }
     .date {
         padding: 10px;
         text-align: center;
         background: @buttonColor;
+        color: @color;
         font-size: 1.6em;
         padding: 2px 7px;
         border-radius: 5px;
