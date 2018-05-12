@@ -361,10 +361,10 @@
   border-radius: 5px;
 }
 #listPageId .listRow {
-  padding: 5px;
+  padding: 10px 5px;
 }
 #listPageId .listRowDate {
-  background: #43adba;
+  background: #43adbac7;
   color: #eafbfc;
   padding: 5px 10px;
 }
@@ -384,7 +384,7 @@
   -ms-flex-align: center;
   -ms-grid-row-align: center;
   align-items: center;
-  padding: 5px;
+  padding: 8px 5px;
   cursor: pointer;
   color: #596a7e;
 }
