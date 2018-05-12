@@ -47,8 +47,9 @@ const getStableWaste = (toDate: number): Promise<IStableWaste[]> => api.parseReq
 
 const updateUserBudget = (entity: any, reqType: IApiType, method: IApiMethod) => {
     let isUserGet = (reqType === "User" && method === "Get");
+    let isRelatedUpdate = (requestType: IApiType, requestMethod: IApiMethod) => requestMethod !== "Get" && (requestType === "Incoming" || requestType === "StableIncome" || requestType === "StableWaste");
 
-    if (isUserGet || (reqType === "Incoming" || reqType === "StableIncome" || reqType === "StableWaste")) {
+    if (isUserGet || isRelatedUpdate(reqType, method)) {
         return api.parseRequest({
             entity: {
                 id: "1"
@@ -61,7 +62,7 @@ const updateUserBudget = (entity: any, reqType: IApiType, method: IApiMethod) =>
 
             let serverDate = toServerDate(toDate);
 
-            if (isUserGet && user.lastDate === serverDate) {
+            if ((isUserGet && user.lastDate === serverDate) || (entity.date && entity.date <= serverDate)) {
                 return Promise.resolve(entity);
             }
 

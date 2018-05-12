@@ -6,11 +6,17 @@
     @buttonColor: rgb(0, 191, 199);
     @buttonFontColor: rgba(255,255,255,0.9);
 
+    height: 100%;
+    overflow-y: auto;
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+
     .box();
     .flex-direction(column);
 
     .date {
-        .flex(0 1 auto);
+        .flex(0 0 auto);
         margin: 5px;
         text-align: center;
         color: @color;
@@ -25,7 +31,7 @@
 
     .status {
         .box();
-        .flex(1 1 auto);
+        .flex(0 0 auto);
         .flex-direction(column);
         background: white;
         border: 1px sodid @whiteBack;
@@ -43,6 +49,13 @@
 
         .currentState {
             color: rgba(0,191,199,0.8);
+
+        }
+
+        .icon {
+            width: 30px;
+            height: 30px;
+            display: inline-block;
         }
 
         .existsToday {
@@ -52,7 +65,7 @@
 
     .buttons {
         .box();
-        .flex(1 1 auto);
+        .flex(0 0 auto);
         .flex-direction(row);
         .justify-content-between();
         font-size: 2em;
@@ -67,7 +80,7 @@
         .justify-content-center();
         .align-items(center);
         .flex-direction(row);
-        .flex(0 1 auto);
+        .flex(0 0 auto);
         margin: 0 30px;
         width: 60px;
         height: 60px;
@@ -83,12 +96,13 @@
             width: 100%;
             height: 100%;
             display: inline-block;
+            padding: 10px;
         }
     }
 
     .list {
         .box();
-        .flex(1 1 auto);
+        .flex(0 0 auto);
         .flex-direction(column);
         .justify-content-center();
         .align-items(center);

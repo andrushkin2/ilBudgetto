@@ -97,11 +97,31 @@
   border-bottom: 1px solid;
 }
 .menu .listItemLink {
-  display: inline-block;
+  display: block;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -moz-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  -ms-grid-row-align: center;
+  align-items: center;
   width: 100%;
   height: 100%;
   box-sizing: border-box;
   padding: 10px 5px 10px 15px;
+}
+.menu .menuIcon {
+  display: inline-block;
+  height: 21px;
+  width: 21px;
+  padding-right: 10px;
 }
 .menu .menuListItem_dark {
   color: #596a7e;
@@ -134,6 +154,11 @@
   background: #f7f7ff;
 }
 #mainPageId {
+  height: 100%;
+  overflow-y: auto;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
   display: block;
   display: -webkit-box;
   display: -webkit-flex;
@@ -146,11 +171,11 @@
   flex-direction: column;
 }
 #mainPageId .date {
-  -webkit-box-flex: 0 1 auto;
-  -webkit-flex: 0 1 auto;
-  -moz-flex: 0 1 auto;
-  -ms-flex: 0 1 auto;
-  flex: 0 1 auto;
+  -webkit-box-flex: 0 0 auto;
+  -webkit-flex: 0 0 auto;
+  -moz-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
   margin: 5px;
   text-align: center;
   color: #eafbfc;
@@ -168,11 +193,11 @@
   display: -moz-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-flex: 1 1 auto;
-  -webkit-flex: 1 1 auto;
-  -moz-flex: 1 1 auto;
-  -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
+  -webkit-box-flex: 0 0 auto;
+  -webkit-flex: 0 0 auto;
+  -moz-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
   -webkit-flex-direction: column;
   -moz-flex-direction: column;
   -ms-flex-direction: column;
@@ -193,6 +218,11 @@
 #mainPageId .status .currentState {
   color: rgba(0, 191, 199, 0.8);
 }
+#mainPageId .status .icon {
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+}
 #mainPageId .status .existsToday {
   color: rgba(127, 89, 188, 0.69019608);
 }
@@ -203,11 +233,11 @@
   display: -moz-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-flex: 1 1 auto;
-  -webkit-flex: 1 1 auto;
-  -moz-flex: 1 1 auto;
-  -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
+  -webkit-box-flex: 0 0 auto;
+  -webkit-flex: 0 0 auto;
+  -moz-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
   -webkit-flex-direction: row;
   -moz-flex-direction: row;
   -ms-flex-direction: row;
@@ -242,11 +272,11 @@
   -moz-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  -webkit-box-flex: 0 1 auto;
-  -webkit-flex: 0 1 auto;
-  -moz-flex: 0 1 auto;
-  -ms-flex: 0 1 auto;
-  flex: 0 1 auto;
+  -webkit-box-flex: 0 0 auto;
+  -webkit-flex: 0 0 auto;
+  -moz-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
   margin: 0 30px;
   width: 60px;
   height: 60px;
@@ -262,6 +292,7 @@
   width: 100%;
   height: 100%;
   display: inline-block;
+  padding: 10px;
 }
 #mainPageId .list {
   display: block;
@@ -270,11 +301,11 @@
   display: -moz-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-flex: 1 1 auto;
-  -webkit-flex: 1 1 auto;
-  -moz-flex: 1 1 auto;
-  -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
+  -webkit-box-flex: 0 0 auto;
+  -webkit-flex: 0 0 auto;
+  -moz-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
   -webkit-flex-direction: column;
   -moz-flex-direction: column;
   -ms-flex-direction: column;
@@ -308,104 +339,6 @@
   -ms-flex-align: center;
   -ms-grid-row-align: center;
   align-items: center;
-}
-#paymentPageId .form {
-  display: block;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -moz-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  border: 1px sodid #43adba;
-  font-size: 1.6em;
-  color: rgba(102, 65, 161, 0.69019608);
-  box-shadow: 0 0 3px 4px #f5f5ff;
-}
-#paymentPageId .formFeild {
-  display: block;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: row;
-  -moz-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  background: white;
-  border-radius: 5px;
-  padding: 10px;
-  margin: 10px;
-}
-#paymentPageId .label {
-  -webkit-box-flex: 0 1 40%;
-  -webkit-flex: 0 1 40%;
-  -moz-flex: 0 1 40%;
-  -ms-flex: 0 1 40%;
-  flex: 0 1 40%;
-}
-#paymentPageId .input,
-#paymentPageId .select {
-  border: none;
-  margin: 0 5px;
-  font-size: 1em;
-  color: rgba(127, 89, 188, 0.69019608);
-}
-#paymentPageId .input {
-  -webkit-box-flex: 1 1 auto;
-  -webkit-flex: 1 1 auto;
-  -moz-flex: 1 1 auto;
-  -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
-  border-bottom: 1px solid rgba(102, 65, 161, 0.69019608);
-  width: 100%;
-  border-radius: 0;
-  padding: 0 5px;
-}
-#paymentPageId .select {
-  -webkit-box-flex: 0 0 auto;
-  -webkit-flex: 0 0 auto;
-  -moz-flex: 0 0 auto;
-  -ms-flex: 0 0 auto;
-  flex: 0 0 auto;
-}
-#paymentPageId .buttons {
-  display: block;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: row;
-  -moz-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
-  -webkit-box-pack: end;
-  -webkit-justify-content: flex-end;
-}
-#paymentPageId .buttons .button {
-  font-size: 1em;
-  border-radius: 5px;
-  padding: 10px;
-  margin: 10px;
-}
-#paymentPageId .buttons .cancel {
-  background: #596a7e;
-  color: white;
-  border: 1px solid #445160;
-}
-#paymentPageId .buttons .apply {
-  background: rgba(127, 89, 188, 0.69019608);
-  color: white;
-  width: 60%;
-  max-width: 200px;
-  border: 1px solid rgba(102, 65, 161, 0.69019608);
 }
 #listPageId {
   overflow: hidden;
@@ -446,8 +379,14 @@
   -moz-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  -ms-grid-row-align: center;
+  align-items: center;
   padding: 5px;
   cursor: pointer;
+  color: #596a7e;
 }
 #listPageId .listIncomingRow .icon,
 #listPageId .listIncomingRow .value {
@@ -457,6 +396,10 @@
   -ms-flex: 0 0 auto;
   flex: 0 0 auto;
   padding: 0 5px;
+}
+#listPageId .listIncomingRow .icon {
+  width: 19px;
+  height: 19px;
 }
 #listPageId .listIncomingRow .text {
   -webkit-box-flex: 1 1 auto;
@@ -470,6 +413,49 @@
   text-align: right;
   padding: 0 10px;
   border-top: 1px solid #00bfc7;
+  color: #1ca834;
+  font-weight: 500;
+}
+#listPageId .total.negative {
+  color: red;
+}
+#stablePageId {
+  box-sizing: border-box;
+  text-align: center;
+}
+#stablePageId .stableButton {
+  display: inline-block;
+  margin: 30px 10%;
+  padding: 20px;
+  font-size: 1.2em;
+  background: #43adba;
+  color: white;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+#stablePageId .stableButtonWaste {
+  background: rgba(127, 89, 188, 0.69019608);
+}
+#stablePageId .windowPopup {
+  overflow-y: scroll;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+#stablePageId .plusButton {
+  text-align: center;
+  margin: 15px 0;
+}
+#stablePageId .actionButton {
+  width: 60px;
+  height: 60px;
+  border-radius: 60px;
+  font-size: 1.5em;
+  line-height: 30px;
+  background: #43adba;
+  border: 1px solid #358a95;
+  color: white;
+  padding: 10px;
 }
 html,
 body {
@@ -517,6 +503,136 @@ a:active {
   padding: 4px;
   width: 100%;
   height: 100%;
+  position: relative;
+}
+.form {
+  display: block;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  border: 1px sodid #43adba;
+  font-size: 1.6em;
+  color: rgba(102, 65, 161, 0.69019608);
+}
+.form.useShadow {
+  box-shadow: 0 0 3px 4px #f5f5ff;
+}
+.form .formFeild {
+  display: block;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -moz-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  background: #f1f1f1;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+}
+.form .label {
+  -webkit-box-flex: 0 1 40%;
+  -webkit-flex: 0 1 40%;
+  -moz-flex: 0 1 40%;
+  -ms-flex: 0 1 40%;
+  flex: 0 1 40%;
+}
+.form .input,
+.form .select {
+  border: none;
+  margin: 0 5px;
+  font-size: 1em;
+  color: rgba(127, 89, 188, 0.69019608);
+  background: inherit;
+}
+.form .input {
+  -webkit-box-flex: 1 1 auto;
+  -webkit-flex: 1 1 auto;
+  -moz-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  border-bottom: 1px solid rgba(102, 65, 161, 0.69019608);
+  width: 100%;
+  border-radius: 0;
+  padding: 0 5px;
+}
+.form .select {
+  -webkit-box-flex: 0 0 auto;
+  -webkit-flex: 0 0 auto;
+  -moz-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+}
+.form .buttons {
+  display: block;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -moz-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+}
+.form .buttons .button {
+  font-size: 1em;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+}
+.form .buttons .cancel {
+  background: #596a7e;
+  color: white;
+  border: 1px solid #445160;
+}
+.form .buttons .apply {
+  background: rgba(127, 89, 188, 0.69019608);
+  color: white;
+  width: 60%;
+  max-width: 200px;
+  border: 1px solid rgba(102, 65, 161, 0.69019608);
+}
+.windowPopup {
+  position: absolute;
+  box-sizing: border-box;
+  padding: 5px;
+  z-index: 2;
+  top: 0;
+  bottom: 0;
+  text-align: center;
+  left: 0;
+  right: 0;
+  margin: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 2px 2px #bfb3b3;
+  background: rgba(89, 106, 126, 0.97);
+}
+.windowPopup .windowHeader {
+  padding: 20px 10px;
+  text-align: center;
+  font-size: 2em;
+  color: white;
+}
+.windowPopup .form .buttons .apply {
+  background: #7f59bc;
+  border-color: #a98dd5;
+}
+.windowPopup .form .buttons .cancel {
+  border-color: #9b98a0;
 }
 @media only screen and (min-width: 700px) {
   #menuId,

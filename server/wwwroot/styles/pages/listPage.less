@@ -37,12 +37,19 @@
     .listIncomingRow {
         .box();
         .flex-direction(row);
+        .align-items(center);
         padding: 5px;
         cursor: pointer;
+        color: #596a7e;
 
         .icon, .value {
             .flex(0 0 auto);
             padding: 0 5px;
+        }
+
+        .icon {
+            width: 19px;
+            height: 19px;
         }
 
         .text {
@@ -55,5 +62,11 @@
         text-align: right;
         padding: 0 10px;
         border-top:  1px solid @buttonColor;
+        color: #1ca834;
+        font-weight: 500;
+
+        &.negative {
+            color: red;
+        }
     }
 }

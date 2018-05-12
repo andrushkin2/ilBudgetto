@@ -115,7 +115,7 @@ export default class EntityLoader {
     };
 
     public readonly stableIncome = {
-        get: (search?: IStableIncomeSearch) => this.api.post<IStableIncomeSearch, IStableWaste>({
+        get: (search?: IStableIncomeSearch) => this.api.post<IStableIncomeSearch, IStableIncome>({
             entity: search as IStableIncomeSearch,
             method: "Get",
             type: "StableIncome"

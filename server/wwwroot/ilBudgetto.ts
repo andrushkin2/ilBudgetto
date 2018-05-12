@@ -9,6 +9,7 @@ import EntityLoader from "./js/entityLoader";
 import SpeachParser from "./js/speachParser";
 import { IUser } from "../server/apiInstances/usersApi";
 import { ICurrency } from "../server/apiInstances/currencyApi";
+import { homeIcon, pencilIcon, cogIcon, pieChartIcon } from "./js/icons";
 
 export interface IIdEntity {
     id: string;
@@ -65,9 +66,10 @@ class Budgetto {
 
         // create a main menu
         new Menu(menuBlock, [
-            { name: "Main", link: "#main" },
-            { name: "Analisys", link: "#analisys" },
-            { name: "Settings", link: "#settings" }
+            { name: "Main", link: "#main", icon: homeIcon("#0d3ae1") },
+            { name: "Stable", link: "#stable", icon: pencilIcon("#0ca225") },
+            { name: "Analisys", link: "#analisys", icon: pieChartIcon("#2cb4a8", "#db0572") },
+            { name: "Settings", link: "#settings", icon: cogIcon("#238585", "#43c3c9") }
         ]);
 
         let title = titleElement;

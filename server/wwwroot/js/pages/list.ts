@@ -1,9 +1,11 @@
 import { IPage, IPageArgs } from "../pageLoader";
 import { IPageElements, getPageElement, getPageElements } from "./pages";
 import ListContainer, { getIncomingListRow } from "./list_html";
-import { IDatePeriod, getMonthPeriod, toServerDate, parseServerDate, addDays, months } from "../dateParser";
+import { IDatePeriod, getMonthPeriod, toServerDate, parseServerDate, addDays, months, getLastDate } from "../dateParser";
 import { IIncoming } from "../../../server/apiInstances/incomingApi";
 import { ICurrency } from "../../../server/apiInstances/currencyApi";
+import { IStableIncome } from "../../../server/apiInstances/stableIncome";
+import { IStableWaste } from "../../../server/apiInstances/stableWaste";
 
 interface IPageState {
     date?: string;
@@ -16,6 +18,21 @@ interface IData {
 export interface ICurrencyObject {
     [key: number]: string;
 }
+
+const toFixedValue = (data: number) => parseFloat(data.toFixed(2));
+
+const getDaylyBudget = (incoming: IStableIncome[], wasting: IStableWaste[]) => {
+    let stableIncoming = incoming.reduce((res, curr) => res + curr.value, 0);
+    let stableWaste = wasting.reduce((res, curr) => res + curr.value, 0);
+
+    let days = getLastDate(new Date());
+
+    let dailyBudget = (stableIncoming - stableWaste) / days;
+
+    return toFixedValue(dailyBudget);
+};
+
+export { toFixedValue, getDaylyBudget };
 
 export default class ListPage implements IPage {
     private content: HTMLDivElement;
@@ -36,10 +53,12 @@ export default class ListPage implements IPage {
     }
 
     private loadData(period: IDatePeriod) {
-        return this.args.store.incoming.get({
-                fromDate: toServerDate(period.fromDate),
-                toDate: toServerDate(period.toDate)
-            }).then(data => {
+        let search = {
+            fromDate: toServerDate(period.fromDate),
+            toDate: toServerDate(period.toDate)
+        };
+
+        return Promise.all([this.args.store.incoming.get(search).then(data => {
                 data.sort((a, b) => a.date - b.date);
 
                 let periodData = this.getDataForPeriod(period);
@@ -54,7 +73,10 @@ export default class ListPage implements IPage {
                 }
 
                 return periodData;
-            });
+            }),
+            this.args.store.stableIncome.get(search),
+            this.args.store.stableWaste.get(search)
+        ]);
     }
 
     private getDataForPeriod(period: IDatePeriod) {
@@ -103,16 +125,28 @@ export default class ListPage implements IPage {
 
         this.mainDateSpan.textContent = this.getDate(date);
 
-        this.loadData(getMonthPeriod(date)).then(data => {
-            let keys = Object.keys(data);
+        this.loadData(getMonthPeriod(date)).then(allData => {
+            let dailyBudget = getDaylyBudget(allData[1], allData[2]);
+
+            let incomingData = allData[0];
+            let keys = Object.keys(incomingData);
             let rows = "";
-            let getTotal = (incoming: IIncoming[]) => incoming.reduce((res, curr) => res + curr.value, 0);
+            let getTotal = (incoming: IIncoming[]) => toFixedValue(incoming.reduce((res, curr) => res + curr.value, 0));
 
             for (let i = 0, len = keys.length; i < len; i++) {
                 let key = keys[i];
-                let incomingArr = data[key];
+                let serverDate = parseInt(key);
+                let incomingArr = [<IIncoming>{
+                    comment: "Daily budget",
+                    date: serverDate,
+                    currencyId: 1,
+                    value: dailyBudget,
+                    isActive: 1,
+                    typeId: 0,
+                    tags: ""
+                }].concat(incomingData[key]);
 
-                rows += getIncomingListRow(incomingArr, parseServerDate(parseInt(key)), getTotal(incomingArr), this.getCurrencyObject(args.getCurrency()));
+                rows += getIncomingListRow(incomingArr, parseServerDate(serverDate), getTotal(incomingArr), this.getCurrencyObject(args.getCurrency()));
             }
 
             this.listBlock.innerHTML = rows;

@@ -1,6 +1,6 @@
 let isUsualObject = function (obj) {
     return Object.prototype.toString.call(obj).indexOf("Object") !== -1;
-}
+};
 
 interface IExtend {
     <T1, T2>(isDeepClone: boolean, target: T1, source: T2): T1 & T2;
@@ -45,4 +45,12 @@ let extend: IExtend = function (...rest) {
     return res;
 };
 
-export { extend };
+const show = (el: HTMLElement) => {
+    el.style.display = "";
+};
+
+const hide = (el: HTMLElement) => {
+    el.style.display = "none";
+};
+
+export { extend, show, hide };

@@ -7,6 +7,7 @@
 @import "./pages/mainPage";
 @import "./pages/paymentPage";
 @import "./pages/listPage";
+@import "./pages/stablePage";
 
 @headColor: @headerColor;
 
@@ -55,6 +56,124 @@ a, a:visited, a:focus, a:active {
         padding: 4px;
         width: 100%;
         height: 100%;
+        position: relative;
+    }
+}
+
+
+@whiteBack: #43adba;
+@textColor: rgba(0,191,199,0.8);
+@formValueColor: rgb(127, 89, 188);
+@formValueBorderColor: rgb(169, 141, 213);
+@valueColor: rgba(127, 89, 188, 0.6901960784313725);
+@cancelColor: #596a7e;
+
+.form {
+
+    .box();
+    .flex-direction(column);
+    border: 1px sodid @whiteBack;
+    font-size: 1.6em;
+    color: darken(@valueColor, 10%);
+
+    &.useShadow {
+        box-shadow: 0 0 3px 4px #f5f5ff;
+    }
+
+    .formFeild {
+        .box();
+        .flex-direction(row);
+        background: #f1f1f1;
+        border-radius: 5px;
+        padding: 10px;
+        margin: 10px;
+    }
+
+    .label {
+        .flex(0 1 40%);
+    }
+
+    .input, .select {
+        border: none;
+        margin: 0 5px;
+        font-size: 1em;
+        color: @valueColor;
+        background: inherit;
+    }
+
+    .input {
+        .flex(1 1 auto);
+        border-bottom: 1px solid darken(@valueColor, 10%);
+        width: 100%;
+        border-radius: 0;
+        padding: 0 5px;
+    }
+
+    .select {
+        .flex(0 0 auto);
+    }
+
+    .buttons {
+        .box();
+        .flex-direction(row);
+        .justify-content-end();
+
+        .button {
+            font-size: 1em;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px;
+        }
+
+        .cancel {
+            background: @cancelColor;
+            color: white;
+            border: 1px solid darken(@cancelColor, 10%);
+        }
+
+        .apply {
+            background: @valueColor;
+            color: white;
+            width: 60%;
+            max-width: 200px;
+            border: 1px solid darken(@valueColor, 10%);
+        }
+    }
+}
+
+.windowPopup {
+    position: absolute;
+    box-sizing: border-box;
+    padding: 5px;
+    z-index: 2;
+    top: 0;
+    bottom: 0;
+    text-align: center;
+    left: 0;
+    right: 0;
+    margin: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 2px 2px #bfb3b3;
+    background: rgba(89, 106, 126, 0.97);
+
+    .windowHeader {
+        padding: 20px 10px;
+        text-align: center;
+        font-size: 2em;
+        color: white;
+    }
+
+    & .form {
+        .buttons {
+            .apply {
+                background: @formValueColor;
+                border-color: @formValueBorderColor;
+            }
+
+            .cancel {
+                border-color: #9b98a0;
+            }
+        }
     }
 }
 

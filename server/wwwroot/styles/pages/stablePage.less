@@ -1,0 +1,50 @@
+@import "../variables";
+
+#stablePageId {
+    @whiteBack: #43adba;
+    @textColor: rgba(0,191,199,0.8);
+    @valueColor: rgba(127, 89, 188, 0.6901960784313725);
+    @cancelColor: #596a7e;
+    box-sizing: border-box;
+
+    text-align: center;
+
+    .stableButton {
+        display: inline-block;
+        margin: 30px 10%;
+        padding: 20px;
+        font-size: 1.2em;
+        background: @whiteBack;
+        color: white;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    .stableButtonWaste {
+        background: @valueColor;
+    }
+
+    .windowPopup {
+        overflow-y: scroll;
+        touch-action: pan-y;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
+    }
+
+    .plusButton {
+        text-align: center;
+        margin: 15px 0;
+    }
+
+    .actionButton {
+        width: 60px;
+        height: 60px;
+        border-radius: 60px;
+        font-size: 1.5em;
+        line-height: 30px;
+        background: @whiteBack;
+        border: 1px solid darken(@whiteBack, 10%);
+        color: white;
+        padding: 10px;
+    }
+}

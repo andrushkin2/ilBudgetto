@@ -1,6 +1,5 @@
-import { decode, encode, clearUndefined, IUrlStateObj } from "./urlCoder";
+import { decode, encode, IUrlStateObj } from "./urlCoder";
 import * as address from "./addresses";
-import { extend } from "./helpers";
 
 export default class UrlState {
     private currentState: IUrlStateObj | null = null;
@@ -100,7 +99,7 @@ export default class UrlState {
     }
 }
 
-class UrlStateController {
+/* class UrlStateController {
     private stateName: string;
 
     constructor(stateName: string) {
@@ -129,4 +128,4 @@ class UrlStateController {
 
         address.set(encodedState, addToHistory);
     }
-}
+} */

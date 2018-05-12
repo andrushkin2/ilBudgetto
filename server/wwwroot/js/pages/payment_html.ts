@@ -1,5 +1,5 @@
 const PaymentContainer = () => `<div id="paymentPageId">
-    <div class="form">
+    <div class="form useShadow">
         <div class="formFeild">
             <label class="label">Value:</label>
             <input id="paymentValue" class="input" value="0" type="number"/>
@@ -24,7 +24,7 @@ const PaymentContainer = () => `<div id="paymentPageId">
             <button class="button apply" id="paymentApply">Apply</button>
         </div>
     </div>
-</div>`
+</div>`;
 
 
 export default PaymentContainer;

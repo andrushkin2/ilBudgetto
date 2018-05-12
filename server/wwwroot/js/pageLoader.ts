@@ -13,6 +13,10 @@ export interface IPage {
     node: HTMLDivElement;
 }
 
+export interface IKeyTypedValue<T> {
+    [key: string]: T;
+}
+
 export interface IKeyValue {
     [key: string]: any;
 }
