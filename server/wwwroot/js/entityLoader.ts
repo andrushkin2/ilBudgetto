@@ -69,7 +69,7 @@ export default class EntityLoader {
     };
 
     public readonly types = {
-        get: (search?: ITypeSearch) => this.api.post<ITypeSearch, ICurrency>({
+        get: (search?: ITypeSearch) => this.api.post<ITypeSearch, IType>({
             entity: search as ITypeSearch,
             method: "Get",
             type: "Types"

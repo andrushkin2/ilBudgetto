@@ -7,7 +7,7 @@ const PaymentContainer = () => `<div id="paymentPageId">
                 </div>
                 <div class="row">
                     <input id="paymentValue" class="input" value="0" type="number"/>
-                    <select id="paymentCurrency" class="select" value="$">
+                    <select id="paymentCurrency" class="select" value="1">
                         <option value="1">$</option>
                     </select>
                 </div>
@@ -18,6 +18,17 @@ const PaymentContainer = () => `<div id="paymentPageId">
                 </div>
                 <div class="row">
                     <input id="paymentComment" class="input" value="" type="text"/>
+                </div>
+            </div>
+            <div class="formFeild">
+                <div class="row label_row">
+                    <label class="label">Type:</label>
+                </div>
+                <div class="row">
+                    <span class="paymentTypeIcon" id="pyamentTypeIcon"></span>
+                    <select id="paymentType" class="select" value="1">
+                        <option value="1">General</option>
+                    </select>
                 </div>
             </div>
             <div class="formFeild">

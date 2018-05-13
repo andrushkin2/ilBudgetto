@@ -6,6 +6,7 @@ import StablePage from "./stablePage";
 import AnalisysPage from "./analisys";
 import FixedPage from "./fixed";
 import IncomeGraphPage from "./incomeGraph";
+import ExpensesGraphPage from "./expenses";
 
 interface IKnownPages {
     [key: string]: new () => IPage;
@@ -22,7 +23,8 @@ let pages: IKnownPages = {
     stable: StablePage,
     analisys: AnalisysPage,
     fixed: FixedPage,
-    incomeGraph: IncomeGraphPage
+    incomeGraph: IncomeGraphPage,
+    expensesGraph: ExpensesGraphPage
 };
 
 export { pages as Pages };

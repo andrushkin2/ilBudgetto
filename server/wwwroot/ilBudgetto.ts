@@ -10,6 +10,7 @@ import SpeachParser from "./js/speachParser";
 import { IUser } from "../server/apiInstances/usersApi";
 import { ICurrency } from "../server/apiInstances/currencyApi";
 import { cogIcon, insertCoinIcon, pieChartColorfullIcon, moneyBag2Icon, priceTagIcon } from "./js/icons";
+import { IType } from "../server/apiInstances/typesApi";
 
 export interface IIdEntity {
     id: string;
@@ -103,6 +104,7 @@ class Budgetto {
             store: this.store,
             getCurrency: () => currency,
             getUser: () => this.user,
+            getTypes: () => types,
             reloadUser: () => this.loadUser()
         };
 
@@ -110,18 +112,23 @@ class Budgetto {
         let pageName = page && page.page || undefined;
 
         let currency: ICurrency[];
+        let types: IType[];
 
         Promise.all([
             this.loadUser(),
-            this.store.currency.get()]).then(data => {
+            this.store.currency.get(),
+            this.store.types.get()
+        ]).then(data => {
                 let userData = data[0];
                 let currencyData = data[1];
+                let typesData = data[2];
 
                 if (!userData) {
                     throw new Error("Cannot get user info");
                 }
 
                 currency = currencyData;
+                types = typesData;
 
                 pageLoader.loadPage(pageName, pageArgs);
             });

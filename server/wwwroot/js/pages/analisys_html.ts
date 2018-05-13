@@ -26,7 +26,7 @@ const AnalisysContainer = () => `<div id="analisysPageId">
                 <div class="itemText">Savings</div>
             </div>
         </a>
-        <a class="itemLink">
+        <a class="itemLink" href="#expensesGraph">
             <div class="item">
                 <div class="itemIcon">${ expensesDiagramIcon() }</div>
                 <div class="itemText">Expenses</div>

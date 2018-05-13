@@ -18,6 +18,8 @@ const arrayToObject = <T extends IIdEntity>(arr: T[]) => {
     return res;
 };
 
+export {arrayToObject};
+
 interface IFromData {
     id?: string;
     value: number;

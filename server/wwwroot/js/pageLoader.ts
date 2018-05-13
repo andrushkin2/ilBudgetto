@@ -5,6 +5,7 @@ import ClientApi from "./clientApi";
 import EntityLoader from "./entityLoader";
 import { IUser } from "../../server/apiInstances/usersApi";
 import { ICurrency } from "../../server/apiInstances/currencyApi";
+import { IType } from "../../server/apiInstances/typesApi";
 
 export interface IPage {
     focus: (args: IPageArgs) => void;
@@ -34,6 +35,7 @@ export interface IPageArgs {
     getUser: () => IUser;
     reloadUser: () => Promise<IUser>;
     getCurrency: () => ICurrency[];
+    getTypes: () => IType[];
 }
 
 interface IPages {

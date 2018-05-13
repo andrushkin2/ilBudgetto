@@ -6,6 +6,8 @@ import { IIncoming } from "../../../server/apiInstances/incomingApi";
 import { ITag } from "../../../server/apiInstances/tagsApi";
 import { parseServerDate, toServerDate } from "../dateParser";
 import { ICurrency } from "../../../server/apiInstances/currencyApi";
+import { IType } from "../../../server/apiInstances/typesApi";
+import { ICONS_TYPES } from "../icons";
 
 let isSupport = new IsSupport();
 
@@ -21,6 +23,7 @@ interface IFormData {
     tags: string[];
     date: Date;
     currencyId: number;
+    typeId: number;
 }
 
 export default class Payment implements IPage {
@@ -31,6 +34,8 @@ export default class Payment implements IPage {
     private paymentTag: HTMLInputElement;
     private paymentDate: HTMLInputElement;
     private paymentCurrency: HTMLSelectElement;
+    private paymentType: HTMLSelectElement;
+    private pyamentTypeIcon: HTMLSpanElement;
     private pageElements: IPageElements;
     private tags: ITag[] = [];
     private allTags: ITag[] = [];
@@ -42,10 +47,21 @@ export default class Payment implements IPage {
         this.paymentValue = this.pageElements.paymentValue as HTMLInputElement;
         this.paymentComment = this.pageElements.paymentComment as HTMLInputElement;
         this.paymentCurrency = this.pageElements.paymentCurrency as HTMLSelectElement;
+        this.pyamentTypeIcon = this.pageElements.pyamentTypeIcon as HTMLSpanElement;
+        this.paymentType = this.pageElements.paymentType as HTMLSelectElement;
         this.paymentTag = this.pageElements.paymentTag as HTMLInputElement;
         this.paymentDate = this.pageElements.paymentDate as HTMLInputElement;
 
         this.content = div;
+
+        this.pyamentTypeIcon.innerHTML = ICONS_TYPES[1];
+
+        this.paymentType.addEventListener("change", e => {
+            e.preventDefault();
+            let typeId = parseInt(this.paymentType.value) || 1;
+
+            this.pyamentTypeIcon.innerHTML = ICONS_TYPES[typeId];
+        }, false);
 
         this.pageElements.paymentApply.addEventListener("click", (e) => {
             this.onApply(e);
@@ -58,6 +74,11 @@ export default class Payment implements IPage {
     private fillCurrency(currency: ICurrency[]) {
         this.paymentCurrency.innerHTML = "";
         this.paymentCurrency.innerHTML = currency.reduce((prev, curr) => prev + `<option value="${ curr.id }">${ curr.name }</option>`, "");
+    }
+
+    private fillTypes(paymentType: IType[]) {
+        this.paymentType.innerHTML = "";
+        this.paymentType.innerHTML = paymentType.reduce((prev, curr) => prev + `<option value="${curr.id}">${curr.name}</option>`, "");
     }
 
     private onApply(e: Event) {
@@ -79,7 +100,7 @@ export default class Payment implements IPage {
                     tags: "",
                     value: values.value,
                     currencyId: values.currencyId,
-                    typeId: state.typeId || 1
+                    typeId: values.typeId
                 });
             } else {
                 task = this.args.store.incoming.get({ id: state.id }).then(incoming => {
@@ -90,7 +111,8 @@ export default class Payment implements IPage {
                         date: toServerDate(values.date),
                         tags: "",
                         value: values.value,
-                        currencyId: values.currencyId
+                        currencyId: values.currencyId,
+                        typeId: values.typeId
                     }});
                 });
             }
@@ -154,6 +176,13 @@ export default class Payment implements IPage {
             return false;
         }
 
+        let type = values.typeId;
+        if (typeof type !== "number" || type === undefined || type === null || isNaN(type)) {
+            alert("Value should be a number");
+            this.paymentType.focus();
+            return false;
+        }
+
         let tags = values.tags;
         if (!tags || !Array.isArray(tags)) {
             alert("Tags are incorrect");
@@ -177,7 +206,8 @@ export default class Payment implements IPage {
             comment: this.paymentComment.value.trim(),
             tags: this.getTags(this.paymentTag.value.trim()),
             date: this.paymentDate.valueAsDate as Date,
-            currencyId: parseInt(this.paymentCurrency.value) || 1
+            currencyId: parseInt(this.paymentCurrency.value) || 1,
+            typeId: parseInt(this.paymentType.value) || 1
         };
     }
 
@@ -188,6 +218,8 @@ export default class Payment implements IPage {
     private fillForm(record: IIncoming) {
         this.paymentValue.value = record.value.toString();
         this.paymentComment.value = record.comment;
+        this.paymentType.value = record.typeId.toString();
+        this.paymentCurrency.value = record.currencyId.toString();
         this.paymentTag.value = this.tags
             .map(value => `#${ value }`)
             .join(" ");
@@ -246,6 +278,9 @@ export default class Payment implements IPage {
         this.clearForm();
 
         this.loadData(state).then((value) => {
+                this.fillCurrency(this.args.getCurrency());
+                this.fillTypes(this.args.getTypes());
+
                 if (value !== undefined) {
                     this.fillForm(value);
                 } else {
@@ -253,7 +288,6 @@ export default class Payment implements IPage {
                     this.paymentValue.value = `${ state.event === "plus" ? "" : "-" }0`;
                     this.paymentDate.valueAsDate = new Date();
                 }
-                this.fillCurrency(this.args.getCurrency());
             }).catch(e => {
                 let message = e.toString();
                 if (e instanceof Error) {
