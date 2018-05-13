@@ -11,6 +11,7 @@ interface IPartOfStableWaste {
     value: number;
     isActive: number;
     currencyId: number;
+    name: string;
 }
 
 export interface INewStableWaste extends IPartOfStableWaste, IDateOfStableWaste {}
@@ -25,8 +26,8 @@ export default class StableWaste implements IApiEntity<INewStableWaste, IStableW
 
     public Add(db: DataBase, entity: INewStableWaste) {
         let sql = `INSERT INTO
-                        stable_waste(date, value, isActive, currencyId)
-                    VALUES('${entity.date}', '${entity.value}', '${entity.isActive}', '${entity.currencyId}')`;
+                        stable_waste(date, value, isActive, currencyId, name)
+                    VALUES('${entity.date}', '${entity.value}', '${entity.isActive}', '${entity.currencyId}', '${entity.name}')`;
         return db.insert(sql).then(id => {
             return this.Get(db, { id: id.toString() });
         });
@@ -48,6 +49,7 @@ export default class StableWaste implements IApiEntity<INewStableWaste, IStableW
                 search.toDate && parts.push(`date <= '${search.toDate}'`);
                 search.isActive && parts.push(`isActive = '${search.isActive}'`);
                 search.value && parts.push(`value = '${search.value}'`);
+                search.name && parts.push(`name LIKE '%${search.name}%'`);
             }
         } else {
             parts = ["1"];
@@ -61,6 +63,7 @@ export default class StableWaste implements IApiEntity<INewStableWaste, IStableW
         let sql = `UPDATE stable_waste
                     SET date = '${entity.date}', value = '${entity.value}',
                         isActive = '${entity.isActive}',
+                        name = '${entity.name}',
                         currencyId = '${entity.currencyId}'
                     WHERE id = '${entity.id}'`;
 

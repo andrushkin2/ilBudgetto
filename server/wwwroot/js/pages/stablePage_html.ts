@@ -29,10 +29,15 @@ const StableContainer = () => `<div id="stablePageId">
 
 
 const getWasteInput = (currency: ICurrency[], data?: IStableWaste | IStableIncome) => `<div class="formFeild" data-id="${data ? data.id : ""}">
-        <input class="input stableWasteValue" value="${ data ? data.value : 0 }" type="number" inputmode="numeric" min="0" pattern="[0-9]*" title="Non-negative integral number"/>
-        <select class="select stableWasteCurrency" value="${ data ? data.currencyId : "1" }">
-            ${ currency.reduce((res, curr) => res + `<option value="${curr.id}">${curr.name}</option>`, "") }
-        </select>
+        <div class="row">
+            <input class="input stableWasteValue" value="${ data ? data.value : 0}" type="number" inputmode="numeric" min="0" pattern="[0-9]*" title="Non-negative integral number"/>
+            <select class="select stableWasteCurrency" value="${ data ? data.currencyId : "1"}">
+                ${ currency.reduce((res, curr) => res + `<option value="${curr.id}">${curr.name}</option>`, "") }
+            </select>
+        </div>
+        <div class="row">
+            <input class="input stableWasteName" value="${ data ? data.name : "" }" type="text" placeholder="Type a name here"/>
+        </div>
     </div>`;
 
 export { getWasteInput as GetWasteInput };

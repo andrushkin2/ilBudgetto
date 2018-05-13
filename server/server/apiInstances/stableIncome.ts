@@ -7,6 +7,7 @@ import DataBase from "../dbInstance";
 
 interface IPartOfStableIncome {
     value: number;
+    name: string;
     currencyId: number;
 }
 
@@ -26,8 +27,8 @@ export default class StableIcome implements IApiEntity<INewStableIncome, IStable
 
     public Add(db: DataBase, entity: INewStableIncome) {
         let sql = `INSERT INTO
-                        stable_income(date, value, currencyId)
-                    VALUES('${entity.date}', '${entity.value}', '${entity.currencyId}')`;
+                        stable_income(date, value, currencyId, name)
+                    VALUES('${entity.date}', '${entity.value}', '${entity.currencyId}', '${entity.name}')`;
         return db.insert(sql).then(id => {
             return this.Get(db, { id: id.toString() });
         });
@@ -48,6 +49,7 @@ export default class StableIcome implements IApiEntity<INewStableIncome, IStable
                 search.fromDate && parts.push(`date >= '${search.fromDate}'`);
                 search.toDate && parts.push(`date <= '${search.toDate}'`);
                 search.value && parts.push(`value = '${search.value}'`);
+                search.name && parts.push(`name LIKE '%${search.name}%'`);
             }
         } else {
             parts = ["1"];
@@ -61,6 +63,7 @@ export default class StableIcome implements IApiEntity<INewStableIncome, IStable
         let sql = `UPDATE stable_income
                     SET date = '${entity.date}', value = '${entity.value}',
                         currencyId = '${entity.currencyId}'
+                        name = '${entity.name}'
                     WHERE id = '${entity.id}'`;
 
         return db.all<IIdEntity>(sql).then(() => {

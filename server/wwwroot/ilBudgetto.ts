@@ -16,7 +16,7 @@ export interface IIdEntity {
 }
 
 class Budgetto {
-    private productVersion = "0.0.1";
+    private productVersion = "0.5.1";
     public support = new IsSupport();
     public urlState: UrlState;
     public api: ClientApi;
@@ -44,6 +44,8 @@ class Budgetto {
             let pageNameString = state ? state.page : undefined;
 
             pageLoader.loadPage(pageNameString, pageArgs);
+
+            menu.classList.remove("shown");
         });
 
         this.api = new ClientApi(location.origin);

@@ -5,6 +5,7 @@ import IsSupport from "../supported";
 import { IIncoming } from "../../../server/apiInstances/incomingApi";
 import { ITag } from "../../../server/apiInstances/tagsApi";
 import { parseServerDate, toServerDate } from "../dateParser";
+import { ICurrency } from "../../../server/apiInstances/currencyApi";
 
 let isSupport = new IsSupport();
 
@@ -53,6 +54,10 @@ export default class Payment implements IPage {
         this.pageElements.paymentCancel.addEventListener("click", (e) => {
             this.onCancel(e);
         }, false);
+    }
+    private fillCurrency(currency: ICurrency[]) {
+        this.paymentCurrency.innerHTML = "";
+        this.paymentCurrency.innerHTML = currency.reduce((prev, curr) => prev + `<option value="${ curr.id }">${ curr.name }</option>`, "");
     }
 
     private onApply(e: Event) {
@@ -247,6 +252,7 @@ export default class Payment implements IPage {
                     this.clearForm();
                     this.paymentValue.value = `${ state.event === "plus" ? "" : "-" }0`;
                 }
+                this.fillCurrency(this.args.getCurrency());
             }).catch(e => {
                 let message = e.toString();
                 if (e instanceof Error) {

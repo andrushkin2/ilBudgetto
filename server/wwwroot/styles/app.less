@@ -73,7 +73,7 @@ a, a:visited, a:focus, a:active {
     .box();
     .flex-direction(column);
     border: 1px sodid @whiteBack;
-    font-size: 1.6em;
+    font-size: 1.5em;
     color: darken(@valueColor, 10%);
 
     &.useShadow {
@@ -82,7 +82,8 @@ a, a:visited, a:focus, a:active {
 
     .formFeild {
         .box();
-        .flex-direction(row);
+        .flex(1 0 auto);
+        .flex-direction(column);
         background: #f1f1f1;
         border-radius: 5px;
         padding: 10px;
@@ -90,7 +91,10 @@ a, a:visited, a:focus, a:active {
     }
 
     .label {
-        .flex(0 1 40%);
+        .flex(0 1 auto);
+        padding: 0 10px;
+        color: #358a95;
+        font-size: 0.8em;
     }
 
     .input, .select {
@@ -99,6 +103,21 @@ a, a:visited, a:focus, a:active {
         font-size: 1em;
         color: @valueColor;
         background: inherit;
+    }
+
+    .row.label_row ~ .row {
+         padding: 0;
+    }
+
+    .row {
+        .box();
+        .flex(1 1 auto);
+        .flex-direction(row);
+        padding-top: 15px;
+
+        &:first-of-type {
+            padding: 0;
+        }
     }
 
     .input {

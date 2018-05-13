@@ -21,6 +21,7 @@ const arrayToObject = <T extends IIdEntity>(arr: T[]) => {
 interface IFromData {
     id?: string;
     value: number;
+    name: string;
     currencyId: number;
 }
 
@@ -144,12 +145,14 @@ export default class StablePage implements IPage {
                 if (value.id && objWaste[value.id]) {
                     let setObj: IStableWaste = { ...objWaste[value.id], ...{
                         value: value.value,
-                        currencyId: value.currencyId
+                        currencyId: value.currencyId,
+                        name: value.name
                     }};
 
                     return this.args.store.stableWaste.set(setObj);
                 } else {
                     return this.args.store.stableWaste.add({
+                        name: value.name,
                         currencyId: value.currencyId,
                         date: startMonthDate,
                         isActive: 1,
@@ -165,13 +168,15 @@ export default class StablePage implements IPage {
                     let setObj: IStableIncome = {
                         ...objIncome[value.id], ...{
                             value: value.value,
-                            currencyId: value.currencyId
+                            currencyId: value.currencyId,
+                            name: value.name
                         }
                     };
 
                     return this.args.store.stableIncome.set(setObj);
                 } else {
                     return this.args.store.stableIncome.add({
+                        name: value.name,
                         currencyId: value.currencyId,
                         date: startMonthDate,
                         value: value.value
@@ -229,22 +234,25 @@ export default class StablePage implements IPage {
             let element = elems.item(i);
             let input = element.querySelector(".stableWasteValue") as HTMLInputElement || null;
             let select = element.querySelector(".stableWasteCurrency") as HTMLSelectElement | null;
+            let name = element.querySelector(".stableWasteName") as HTMLInputElement | null;
 
-            if (!input || !select) {
+            if (!input || !select || !name) {
                 continue;
             }
 
             let value = parseFloat(input.value.trim());
             let type = parseInt(select.value.trim());
+            let comment = name.value.trim();
             let id = element.getAttribute("data-id");
 
-            if (!this.isValueValid(value, input) || !this.isValueValid(type, select)) {
+            if (!this.isValueValid(value, input) || !this.isValueValid(type, select) || !comment) {
                 return new Error("Wrong input value");
             }
 
             let res: IFromData = {
                 currencyId: type,
-                value: value
+                value: value,
+                name: comment
             };
 
             if (!!id) {

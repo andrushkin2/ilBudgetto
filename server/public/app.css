@@ -340,6 +340,12 @@
   -ms-grid-row-align: center;
   align-items: center;
 }
+#paymentPageId .windowPopup {
+  overflow-y: auto;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
 #listPageId {
   overflow: hidden;
   height: 100%;
@@ -433,6 +439,9 @@
   border-radius: 5px;
   box-sizing: border-box;
 }
+#stablePageId .stableWasteName {
+  display: inline-block;
+}
 #stablePageId .stableButtonWaste {
   background: rgba(127, 89, 188, 0.69019608);
 }
@@ -517,7 +526,7 @@ a:active {
   -ms-flex-direction: column;
   flex-direction: column;
   border: 1px sodid #43adba;
-  font-size: 1.6em;
+  font-size: 1.5em;
   color: rgba(102, 65, 161, 0.69019608);
 }
 .form.useShadow {
@@ -530,21 +539,29 @@ a:active {
   display: -moz-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: row;
-  -moz-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
+  -webkit-box-flex: 1 0 auto;
+  -webkit-flex: 1 0 auto;
+  -moz-flex: 1 0 auto;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   background: #f1f1f1;
   border-radius: 5px;
   padding: 10px;
   margin: 10px;
 }
 .form .label {
-  -webkit-box-flex: 0 1 40%;
-  -webkit-flex: 0 1 40%;
-  -moz-flex: 0 1 40%;
-  -ms-flex: 0 1 40%;
-  flex: 0 1 40%;
+  -webkit-box-flex: 0 1 auto;
+  -webkit-flex: 0 1 auto;
+  -moz-flex: 0 1 auto;
+  -ms-flex: 0 1 auto;
+  flex: 0 1 auto;
+  padding: 0 10px;
+  color: #358a95;
+  font-size: 0.8em;
 }
 .form .input,
 .form .select {
@@ -553,6 +570,30 @@ a:active {
   font-size: 1em;
   color: rgba(127, 89, 188, 0.69019608);
   background: inherit;
+}
+.form .row.label_row ~ .row {
+  padding: 0;
+}
+.form .row {
+  display: block;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1 1 auto;
+  -webkit-flex: 1 1 auto;
+  -moz-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  -webkit-flex-direction: row;
+  -moz-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  padding-top: 15px;
+}
+.form .row:first-of-type {
+  padding: 0;
 }
 .form .input {
   -webkit-box-flex: 1 1 auto;
