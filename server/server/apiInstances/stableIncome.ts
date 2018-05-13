@@ -62,7 +62,7 @@ export default class StableIcome implements IApiEntity<INewStableIncome, IStable
     public Set(db: DataBase, entity: IStableIncome) {
         let sql = `UPDATE stable_income
                     SET date = '${entity.date}', value = '${entity.value}',
-                        currencyId = '${entity.currencyId}'
+                        currencyId = '${entity.currencyId}',
                         name = '${entity.name}'
                     WHERE id = '${entity.id}'`;
 

@@ -251,6 +251,7 @@ export default class Payment implements IPage {
                 } else {
                     this.clearForm();
                     this.paymentValue.value = `${ state.event === "plus" ? "" : "-" }0`;
+                    this.paymentDate.valueAsDate = new Date();
                 }
                 this.fillCurrency(this.args.getCurrency());
             }).catch(e => {
