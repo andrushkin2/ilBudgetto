@@ -3,6 +3,9 @@ import { IPage } from "../pageLoader";
 import Payment from "./payment";
 import ListPage from "./list";
 import StablePage from "./stablePage";
+import AnalisysPage from "./analisys";
+import FixedPage from "./fixed";
+import IncomeGraphPage from "./incomeGraph";
 
 interface IKnownPages {
     [key: string]: new () => IPage;
@@ -16,7 +19,10 @@ let pages: IKnownPages = {
     main: MainPage,
     payment: Payment,
     list: ListPage,
-    stable: StablePage
+    stable: StablePage,
+    analisys: AnalisysPage,
+    fixed: FixedPage,
+    incomeGraph: IncomeGraphPage
 };
 
 export { pages as Pages };
