@@ -2,7 +2,7 @@ import { IPage, IPageArgs } from "../pageLoader";
 import { IPageElements, getPageElement, getPageElements } from "./pages";
 import TrendsContainer from "./trends_html";
 import { getMonthPeriod, toServerDate, parseServerDate } from "../dateParser";
-import charts, { CHART_COLORS } from "../chart";
+import charts from "../chart";
 
 
 interface IPageState {
@@ -58,15 +58,6 @@ export default class TrendsPage implements IPage {
             let savings = stableIncome + income - expenses - stableWaste;
 
             return { savings, expenses, stableWaste };
-        });
-    }
-
-    private loadData(date: Date) {
-        let period = getMonthPeriod(date);
-
-        return this.args.store.stableWaste.get({
-            fromDate: toServerDate(period.fromDate),
-            toDate: toServerDate(period.toDate)
         });
     }
 

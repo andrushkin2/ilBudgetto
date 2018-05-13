@@ -8,6 +8,7 @@ import FixedPage from "./fixed";
 import IncomeGraphPage from "./incomeGraph";
 import ExpensesGraphPage from "./expenses";
 import TrendsPage from "./trends";
+import SurplusGraphPage from "./surplus";
 
 interface IKnownPages {
     [key: string]: new () => IPage;
@@ -26,7 +27,8 @@ let pages: IKnownPages = {
     fixed: FixedPage,
     incomeGraph: IncomeGraphPage,
     expensesGraph: ExpensesGraphPage,
-    trendsGraph: TrendsPage
+    trendsGraph: TrendsPage,
+    surplusGraph: SurplusGraphPage
 };
 
 export { pages as Pages };

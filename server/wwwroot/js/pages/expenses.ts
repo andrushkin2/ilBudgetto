@@ -1,11 +1,11 @@
 import { IPageArgs, IPage, IKeyValue, IKeyTypedValue } from "../pageLoader";
 import { IPageElements, getPageElement, getPageElements } from "./pages";
-import IncomeGraphContainer from "./incomeGraph_html";
-import { getMonthPeriod, toServerDate, months, parseServerDate } from "../dateParser";
+import { getMonthPeriod, toServerDate, parseServerDate } from "../dateParser";
 import charts, { CHART_COLORS } from "../chart";
 import { arrayToObject } from "./stablePage";
 import { IIncoming } from "../../../server/apiInstances/incomingApi";
 import { IType } from "../../../server/apiInstances/typesApi";
+import ExpensesContainer from "./expenses_html";
 
 interface IPageState {
     date?: number;
@@ -22,11 +22,11 @@ export default class ExpensesGraphPage implements IPage {
 
     constructor() {
         let div = getPageElement();
-        div.innerHTML = IncomeGraphContainer();
+        div.innerHTML = ExpensesContainer();
 
         this.pageElements = getPageElements(div);
 
-        this.expensesGraphBarChart = this.pageElements.incomeGraphBarChart as HTMLCanvasElement;
+        this.expensesGraphBarChart = this.pageElements.expensesGraphBarChart as HTMLCanvasElement;
 
         let chartContext = this.expensesGraphBarChart.getContext("2d");
         if (chartContext === null) {

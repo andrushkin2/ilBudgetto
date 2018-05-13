@@ -8,7 +8,7 @@ const AnalisysContainer = () => `<div id="analisysPageId">
                 <div class="itemText">Overview</div>
             </div>
         </a>
-        <a class="itemLink">
+        <a class="itemLink" href="#surplusGraph">
             <div class="item">
                 <div class="itemIcon">${ barChartIcon() }</div>
                 <div class="itemText">Daily surplus</div>

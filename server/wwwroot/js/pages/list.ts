@@ -11,7 +11,7 @@ interface IPageState {
     date?: string;
 }
 
-interface IData {
+export interface IData {
     [key: string]: IIncoming[];
 }
 
