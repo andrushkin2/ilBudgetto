@@ -602,6 +602,21 @@
   border-radius: 5px;
   color: white;
 }
+#trendsPageId {
+  height: 100%;
+  overflow-y: auto;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+#trendsPageId #incomeGraphLegend {
+  text-align: center;
+  background: #43adba;
+  font-size: 1.4em;
+  padding: 2px 7px;
+  border-radius: 5px;
+  color: white;
+}
 html,
 body {
   background: #f7f7ff;

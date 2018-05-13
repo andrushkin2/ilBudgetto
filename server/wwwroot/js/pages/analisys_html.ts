@@ -14,7 +14,7 @@ const AnalisysContainer = () => `<div id="analisysPageId">
                 <div class="itemText">Daily surplus</div>
             </div>
         </a>
-        <a class="itemLink">
+        <a class="itemLink" href="#trendsGraph">
             <div class="item">
                 <div class="itemIcon">${ barsChartIcon() }</div>
                 <div class="itemText">Trends</div>
