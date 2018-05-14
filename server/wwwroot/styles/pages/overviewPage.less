@@ -1,0 +1,30 @@
+
+#overviewGraphPageId {
+    height: 100%;
+    overflow-y: auto;
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+
+
+    .box {
+        .box();
+        .flex(0 1 auto);
+        .flex-direction(row)
+    }
+
+    .column {
+        .box();
+        .flex(0 1 45%);
+        .flex-direction(column);
+        padding: 10px;
+    }
+
+    .right {
+        .align-items-end();
+    }
+
+    .left {
+        .align-item-start();
+    }
+}

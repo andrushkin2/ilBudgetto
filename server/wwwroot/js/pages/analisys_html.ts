@@ -2,7 +2,7 @@ import { overviewIcon, barChartIcon, barsChartIcon, savingDiagramIcon, expensesD
 
 const AnalisysContainer = () => `<div id="analisysPageId">
     <div class="row">
-        <a class="itemLink">
+        <a class="itemLink" href="#overview">
             <div class="item">
                 <div class="itemIcon">${ overviewIcon() }</div>
                 <div class="itemText">Overview</div>
@@ -20,7 +20,7 @@ const AnalisysContainer = () => `<div id="analisysPageId">
                 <div class="itemText">Trends</div>
             </div>
         </a>
-        <a class="itemLink">
+        <a class="itemLink" href="#savingsGraph">
             <div class="item">
                 <div class="itemIcon">${ savingDiagramIcon() }</div>
                 <div class="itemText">Savings</div>
