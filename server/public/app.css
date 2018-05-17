@@ -670,6 +670,28 @@
   -moz-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
+  color: #578499;
+}
+#overviewGraphPageId .green {
+  color: #1ca834;
+  font-weight: 600;
+}
+#overviewGraphPageId .orange {
+  color: #36a2eb;
+  font-weight: 600;
+}
+#overviewGraphPageId .line {
+  border-top: 1px solid #2196F3;
+  border-bottom: 1px solid #2196F3;
+  height: 2px;
+  margin: 0 20%;
+}
+#overviewGraphPageId .savings {
+  color: #FF5722;
+  font-weight: 600;
+}
+#overviewGraphPageId .row {
+  height: 20px;
 }
 #overviewGraphPageId .column {
   display: block;
@@ -687,6 +709,7 @@
   -moz-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
+  color: #578499;
   -webkit-box-flex: 0 1 45%;
   -webkit-flex: 0 1 45%;
   -moz-flex: 0 1 45%;
@@ -696,7 +719,11 @@
   -moz-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
-  padding: 10px;
+  padding: 15px 10px;
+}
+#overviewGraphPageId .leftBudget {
+  font-weight: 600;
+  color: #9e38c0;
 }
 #overviewGraphPageId .right {
   -webkit-box-align: end;
