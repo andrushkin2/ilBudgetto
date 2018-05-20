@@ -57,6 +57,9 @@ typings/
 # dotenv environment variables file
 .env
 
+# temp files
+~*
+
 # client JS files
 server/**/*.js
 !server/wwwroot/**/external/*.js
