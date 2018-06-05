@@ -1,7 +1,7 @@
 import { IPageArgs, IPage } from "../pageLoader";
 import { IPageElements, getPageElement, getPageElements } from "./pages";
 import OverviewContainer from "./overview_html";
-import { IDatePeriod, toServerDate, getMonthPeriod, addMonths, parseServerDate } from "../dateParser";
+import { IDatePeriod, toServerDate, getMonthPeriod, addMonths } from "../dateParser";
 import { toFixedValue } from "./list";
 import { IStableWaste } from "../../../server/apiInstances/stableWaste";
 
