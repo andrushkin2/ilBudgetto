@@ -11,6 +11,7 @@ import { IUser } from "../server/apiInstances/usersApi";
 import { ICurrency } from "../server/apiInstances/currencyApi";
 import { cogIcon, insertCoinIcon, pieChartColorfullIcon, moneyBag2Icon, priceTagIcon } from "./js/icons";
 import { IType } from "../server/apiInstances/typesApi";
+import RecognizePopup from "./js/pages/recognizePopup";
 
 export interface IIdEntity {
     id: string;
@@ -23,6 +24,7 @@ class Budgetto {
     public api: ClientApi;
     public store: EntityLoader;
     private user: IUser;
+    private recognizePopup: RecognizePopup;
     public speachParser: SpeachParser;
     get vesrion() {
         return this.productVersion;
@@ -52,6 +54,10 @@ class Budgetto {
         this.api = new ClientApi(location.origin);
         this.store = new EntityLoader(this.api);
         this.speachParser = new SpeachParser();
+
+        // install recognize popup
+        this.recognizePopup = new RecognizePopup();
+        document.body.appendChild(this.recognizePopup.container);
 
         let menu = menuElement;
         let onClickMenu = (e: Event) => {
