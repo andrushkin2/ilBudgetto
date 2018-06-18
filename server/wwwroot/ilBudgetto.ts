@@ -164,16 +164,16 @@ window["budgetto"] = budgetto;
 
 window["createSpeachElement"] = function () {
     window["textlineElement"] = new ya.speechkit.Textline("headerSpeachId", {
-        apikey: "5ad6ae51-9cc2-4301-85bb-ade0d8a077f1",
+        apikey: "dc5c5bc7-bcbf-4d53-8ac7-b62bd2d9bcd3",
         onInputFinished: function (text) {
             let recognize = budgetto.speachParser.recognize(text || "");
             let alertText = "";
             if (recognize instanceof Error) {
                alertText =  `${recognize.message}: ${text}`;
             } else {
-                alertText = `Value: ${recognize.value} ${recognize.currency.name}\nType: General\nComment: ${recognize.comment}`;
+                alertText = `Full: ${input ? input.value.trim() : ""}\nValue: ${recognize.value} ${recognize.currency.name}\nType: General\nComment: ${recognize.comment}`;
             }
-            alert(alertText);
+            confirm(alertText);
         }
     });
     let input: HTMLInputElement | null = document.querySelector(`#${speachIconId} input`);

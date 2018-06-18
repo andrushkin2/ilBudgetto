@@ -112,9 +112,6 @@ export default class ExpensesGraphPage implements IPage {
                     tooltips: {
                         mode: "index",
                         intersect: true
-                    },
-                    scales: {
-                        yAxes: sticks
                     }
                 }
             });
